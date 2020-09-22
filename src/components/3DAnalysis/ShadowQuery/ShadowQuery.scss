@@ -1,0 +1,7 @@
+.sm-input-long {
+    float: right;
+    width: 35%;
+    @media (max-width: 750px) {
+        width: 32%;
+    }
+}

@@ -1,0 +1,18 @@
+.sm-function-module-content {
+  margin: 0;
+  @media (max-height: 450px) {
+    overflow: hidden;
+    padding: 0 15px;
+    max-height: 420px;
+    max-width: 280px;
+  }
+}
+
+.sm-input-long {
+  float: right;
+  width: 35%;
+}
+
+.sm-function-module-sub-section {
+  margin-bottom: 0;
+}

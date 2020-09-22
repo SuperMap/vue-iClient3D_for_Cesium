@@ -1,0 +1,7 @@
+.drawCur {
+    cursor: url(./images/cur/draw.cur), auto;
+  }
+
+  .measureCur {
+    cursor: url(./images/cur/measure.cur), auto;
+  }

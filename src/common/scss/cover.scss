@@ -1,0 +1,25 @@
+/* 覆盖第三方库样式 */
+
+.ivu-color-picker-color {
+    width: 100%;
+}
+
+.ivu-color-picker-picker {
+    overflow: auto;
+}
+
+.ivu-select-dropdown {
+    min-width: 265px;
+}
+
+.ivu-input {
+    height: 25px;
+    padding: 1px 6px;
+    background-color: transparent;
+    border: 1px solid #686363;
+    border-radius: 0;
+}
+
+.ivu-input:focus {
+    border-color: #515a6e;
+}

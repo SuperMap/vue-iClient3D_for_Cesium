@@ -1,0 +1,68 @@
+{
+  "name": "@supermap/vue-iclient3d-webgl",
+  "description": "Supermap iClient3D WebGL for Vue.js",
+  "homepage": "http://support.supermap.com.cn:8090/webgl/examples/component/examples.html#layer",
+  "version": "1.0.9",
+  "author": "chenfei23 <chenfei1@supermap.com>",
+  "license": "MIT",
+  "private": false,
+  "main": "dist/vue-iclient3d-webgl.min.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "build:style": "gulp --gulpfile build-style.js"
+  },
+  "dependencies": {
+    "@supermap/iclient3d-webgl": "^1.0.6",
+    "ant-design-vue": "^1.6.2",
+    "axios": "^0.19.2",
+    "echarts": "^4.8.0",
+    "vue": "^2.5.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-import": "1.13.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.4",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-less": "^4.0.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.1.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.0",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "url-loader": "4.1.0",
+    "view-design": "4.3.2",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "3.6.0",
+    "webpack-bundle-analyzer": "3.8.0",
+    "webpack-dev-server": "^2.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "Vue",
+    "SuperMap",
+    "WebGL",
+    "Cesium",
+    "iClient3D"
+  ]
+}
