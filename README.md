@@ -2,7 +2,7 @@
 
 # 简介
 - 官网：http://support.supermap.com.cn:8090/webgl/examples/component/examples.html#layer
-- 源码：
+- 源码：https://github.com/SuperMap/iClient3D-vue
 
 
 # 安装
