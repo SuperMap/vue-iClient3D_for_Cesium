@@ -1,0 +1,13 @@
+// 配置按需加载
+
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false
+      }
+    ]
+  ]
+  ,"plugins": ["@vue/babel-plugin-jsx"]
+}
