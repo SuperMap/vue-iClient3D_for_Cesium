@@ -1,0 +1,239 @@
+/*
+* scss基础配置文件
+*/
+
+// 自定义主题
+:root {
+  --theme-bg-color: #3499e5; //主题色
+  --panel-bg-color: rgb(249, 249, 249); //界面背景色
+  --font-color: #333333; //字体颜色
+  --font-family: "Microsoft YaHei", "Arial", "黑体", "宋体", sans-serif; //字体风格
+  --border-color: #999999;
+  --content-font-size:14px;  //内容部分字体大小
+  --title-font-size:16px;   //标贴部分字体大小
+  --tip-font-size:12px;   //提示部分字体大小
+  --panel-width:320px;   //界面宽度
+  --panel-max-height:520px;   //界面最大高度
+  --shadow-color:rgba(128, 128, 128, 0.5);
+}
+
+// 响应式函数
+// 字体
+@mixin cal-font-size($fz:14px){
+  font-size:$fz;
+  @media (max-width: 1000px) {
+    font-size: calc( #{$fz} - 1px);
+  }
+  @media (max-width: 750px) {
+    font-size: calc( #{$fz}  - 2px) ;
+  }
+  @media (max-width: 500px) {
+    font-size: calc( #{$fz}  - 3px);
+  }
+
+  @media (max-height: 480px) {
+    font-size: calc( #{$fz}  - 1px);
+  }
+
+  @media (max-height: 300px) {
+    font-size: calc( #{$fz}  - 2px);
+  }
+}
+
+// 宽度
+@mixin cal-width($wt){
+  width:$wt;
+  @media (max-width: 1000px) {
+    width: calc(#{$wt} * 0.8) ;
+  }
+  @media (max-width: 750px) {
+    width: calc(#{$wt}* 0.7) ;
+  }
+  @media (max-width: 500px) {
+    width: calc(#{$wt}* 0.65) ;
+  }
+  @media (max-height: 750px) {
+    width: calc(#{$wt}* 0.8) ;
+  }
+  @media (max-height: 500px) {
+    width: calc(#{$wt}* 0.75) ;
+  }
+
+  @media (max-height: 400px) {
+    width: calc(#{$wt}* 0.7) ;
+  }
+  @media (max-height: 300px) {
+    width: calc(#{$wt}* 0.65) ;
+  }
+}
+
+// 高度
+
+@mixin cal-height($ht){
+  height:$ht;
+  @media (max-height: 750px) {
+    height: calc(#{$ht} * 0.8) ;
+  }
+  @media (max-height: 500px) {
+    height: calc(#{$ht} * 0.7) ;
+  }
+
+  @media (max-height: 400px) {
+    height: calc(#{$ht} * 0.6) ;
+  }
+  @media (max-height: 300px) {
+    height: calc(#{$ht} * 0.5) ;
+  }
+  @media (max-width: 1000px) {
+    height: calc(#{$ht} * 0.9) ;
+  }
+  @media (max-width: 750px) {
+    height: calc(#{$ht} * 0.9) ;
+  }
+  @media (max-width: 500px) {
+    height: calc(#{$ht} * 0.7) ;
+  }
+}
+
+@mixin cal-line-height($ht){
+  line-height:$ht;
+  @media (max-height: 750px) {
+    line-height: calc(#{$ht} * 0.8) ;
+  }
+  @media (max-height: 500px) {
+    line-height: calc(#{$ht} * 0.7) ;
+  }
+
+  @media (max-height: 400px) {
+    line-height: calc(#{$ht} * 0.6) ;
+  }
+  @media (max-height: 300px) {
+    line-height: calc(#{$ht} * 0.5) ;
+  }
+  @media (max-width: 1000px) {
+    line-height: calc(#{$ht} * 0.9) ;
+  }
+  @media (max-width: 750px) {
+    line-height: calc(#{$ht} * 0.9) ;
+  }
+  @media (max-width: 500px) {
+    line-height: calc(#{$ht} * 0.7) ;
+  }
+}
+
+@mixin cal-max-height($ht){
+  max-height:$ht;
+  @media (max-height: 750px) {
+    max-height: calc(#{$ht} * 0.8) ;
+  }
+  @media (max-height: 500px) {
+    max-height: calc(#{$ht} * 0.7) ;
+  }
+
+  @media (max-height: 400px) {
+    max-height: calc(#{$ht} * 0.6) ;
+  }
+  @media (max-height: 300px) {
+    max-height: calc(#{$ht} * 0.5) ;
+  }
+}
+
+// 边距
+@mixin cal-margin($top,$rig,$bom,$lef){
+  margin:$top $rig $bom $lef;
+  @media (max-height: 750px) {
+    margin-top: calc(#{$top} * 0.8) ;
+    margin-right: calc(#{$rig} * 0.8) ;
+    margin-bottom: calc(#{$bom} * 0.8) ;
+    margin-left: calc(#{$lef} * 0.8) ;
+  }
+  @media (max-height: 500px) {
+    margin-top: calc(#{$top} * 0.6) ;
+    margin-right: calc(#{$rig} * 0.6) ;
+    margin-bottom: calc(#{$bom} * 0.6) ;
+    margin-left: calc(#{$lef} * 0.6) ;
+  }
+
+  @media (max-height: 400px) {
+    margin-top: calc(#{$top} * 0.4) ;
+    margin-right: calc(#{$rig} * 0.4) ;
+    margin-bottom: calc(#{$bom} * 0.4) ;
+    margin-left: calc(#{$lef} * 0.4) ;
+  }
+  @media (max-height: 300px) {
+    margin-top: calc(#{$top} * 0.2) ;
+    margin-right: calc(#{$rig} * 0.2) ;
+    margin-bottom: calc(#{$bom} * 0.2) ;
+    margin-left: calc(#{$lef} * 0.2) ;
+  }
+  @media (max-width: 1000px) {
+    margin-top: calc(#{$top} * 0.8) ;
+    margin-right: calc(#{$rig} * 0.8) ;
+    margin-bottom: calc(#{$bom} * 0.8) ;
+    margin-left: calc(#{$lef} * 0.8) ;
+  }
+  @media (max-width: 750px) {
+    margin-top: calc(#{$top} * 0.6) ;
+    margin-right: calc(#{$rig} * 0.6) ;
+    margin-bottom: calc(#{$bom} * 0.6) ;
+    margin-left: calc(#{$lef} * 0.6) ;
+  }
+
+  @media (max-width: 500px) {
+    margin-top: calc(#{$top} * 0.4) ;
+    margin-right: calc(#{$rig} * 0.4) ;
+    margin-bottom: calc(#{$bom} * 0.4) ;
+    margin-left: calc(#{$lef} * 0.4) ;
+  }
+
+}
+
+@mixin cal-padding($top,$rig,$bom,$lef){
+  padding:$top $rig $bom $lef;
+  @media (max-height: 750px) {
+    padding-top: calc(#{$top} * 0.8) ;
+    padding-right: calc(#{$rig} * 0.8) ;
+    padding-bottom: calc(#{$bom} * 0.8) ;
+    padding-left: calc(#{$lef} * 0.8) ;
+  }
+  @media (max-height: 500px) {
+    padding-top: calc(#{$top} * 0.6) ;
+    padding-right: calc(#{$rig} * 0.6) ;
+    padding-bottom: calc(#{$bom} * 0.6) ;
+    padding-left: calc(#{$lef} * 0.6) ;
+  }
+
+  @media (max-height: 400px) {
+    padding-top: calc(#{$top} * 0.4) ;
+    padding-right: calc(#{$rig} * 0.4) ;
+    padding-bottom: calc(#{$bom} * 0.4) ;
+    padding-left: calc(#{$lef} * 0.4) ;
+  }
+  @media (max-height: 300px) {
+    padding-top: calc(#{$top} * 0.2) ;
+    padding-right: calc(#{$rig} * 0.2) ;
+    padding-bottom: calc(#{$bom} * 0.2) ;
+    padding-left: calc(#{$lef} * 0.2) ;
+  }
+  @media (max-width: 1000px) {
+    padding-top: calc(#{$top} * 0.8) ;
+    padding-right: calc(#{$rig} * 0.8) ;
+    padding-bottom: calc(#{$bom} * 0.8) ;
+    padding-left: calc(#{$lef} * 0.8) ;
+  }
+  @media (max-width: 750px) {
+    padding-top: calc(#{$top} * 0.6) ;
+    padding-right: calc(#{$rig} * 0.6) ;
+    padding-bottom: calc(#{$bom} * 0.6) ;
+    padding-left: calc(#{$lef} * 0.6) ;
+  }
+
+  @media (max-width: 500px) {
+    padding-top: calc(#{$top} * 0.4) ;
+    padding-right: calc(#{$rig} * 0.4) ;
+    padding-bottom: calc(#{$bom} * 0.4) ;
+    padding-left: calc(#{$lef} * 0.4) ;
+  }
+
+}
+

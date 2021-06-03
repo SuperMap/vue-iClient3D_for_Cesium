@@ -1,0 +1,214 @@
+@import 'base';
+
+.cesium-viewer-bottom{
+  display: inline-block;
+  right: unset ;
+}
+
+/* 覆盖第三方库样式 */
+
+// 滑块
+.el-slider{
+  width: 100%;
+  .el-slider__input {
+    width: 36%;
+    .el-input--mini{
+      .el-input__inner{
+        padding-left: 15px;
+        padding-right: 15px;
+        // border-color:var( --border-color);
+        color:var(--font-color);
+        background-color:var(--panel-bg-color);
+      }
+    }
+  }
+  .el-input-number--mini .el-input-number__decrease, .el-input-number--mini .el-input-number__increase {
+    width: 15px;
+    background:var(--panel-bg-color);
+    color:var(--font-color);
+  }
+  
+.el-slider__runway {
+//  margin-right: 3px; 
+  width: 98%;
+  // margin-left: 3px;
+  margin-top: 0;
+  margin-bottom: 0;
+  // background-color: var(--border-color);
+
+  .el-slider__button-wrapper{
+    height: 25px;
+    width: 25px;
+    top: -10px;
+    .el-slider__button{
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+}
+
+
+// colorPicker设置
+.el-color-picker--mini{
+  width: 48%;
+  @include cal-height(24px);
+   .el-color-picker__trigger{
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--border-color);
+    .el-color-picker__color, .is-alpha{
+      width: 85%;
+      border:0;
+
+    }
+    .el-color-picker__icon {
+      left: 90%;
+      color: var(--font-color);
+    }
+  }
+}
+.el-color-dropdown{
+  @include cal-width(220px);
+  .el-color-svpanel{
+    @include cal-width(200px);
+    @include cal-height(150px);
+  }
+  .el-color-hue-slider.is-vertical{
+    @include cal-height(150px);
+  }
+  .el-color-alpha-slider{
+    @include cal-width(220px);
+  }
+  .el-color-dropdown__value{
+    @include cal-width(120px);
+    .el-input__inner{
+      padding: 0;
+
+    }
+  }
+  .el-button--mini{
+    @include cal-padding(7px,8px,7px,8px);
+    margin: 0;
+  }
+}
+
+  // 覆盖时间滑块
+  #shadowquery-panel{
+    .el-slider__runway{
+      height: 2px;
+      background-color: var(--border-color);
+      .el-slider__bar{
+        height: 3px;
+      }
+      .el-slider__button-wrapper{
+        top: -11px;
+      }
+    }
+    .el-slider__stop {
+      background-color: var(--border-color);
+      top: 6px;
+      position: absolute;
+      width: 2px;
+      height: 5px;
+      border-radius: 0;
+    }
+    .el-slider__stop:nth-child(3n+1) {
+      height: 8px;
+    }
+    
+  }
+  .tooltip-class{
+    background:var(--panel-bg-color) !important;
+    color:var(--font-color) !important;
+    border: 1px solid var(--border-color) !important;
+   }
+   .el-popper.is-dark .el-popper__arrow{
+     width: 9px;
+     height: 9px;
+     &::before{
+       background-color: var(--panel-bg-color) !important;
+       border: 1px solid var(--border-color) !important;
+       border-left: none !important;
+       border-top: none !important;
+     }
+   }
+
+
+
+// 日期选择器
+
+.el-date-editor.el-input, .el-date-editor.el-input__inner {
+  width: 100%;
+  .el-input__prefix{
+    right:5px;
+    left: auto;
+  }
+}
+.el-date-picker{
+  line-height: 0;
+  width: auto;
+  .el-date-picker__header{
+    margin: 4px 0;
+    .el-picker-panel__icon-btn{
+      margin-top: 4px;
+    }
+  }
+  .el-picker-panel__content{
+    width: 220px !important;
+    margin: 10px 13px;
+    .el-date-table td{
+      height: 24px;
+       padding: 2px 0;
+    }
+    .el-date-table td div{
+      height: 22px;
+    }
+    .el-date-table th{
+      padding:8px  2px;
+    }
+  }
+}
+ 
+.el-input--small .el-input__inner{
+  text-align: center;
+}
+
+
+// 帧率覆盖 
+.cesium-performanceDisplay-defaultContainer{
+  top: 10px;
+  right: 10px;
+}
+
+//树
+.el-tree{
+  background-color: transparent;
+  .el-tree-node__content>.el-tree-node__expand-icon{
+    margin-left: -3px;
+    padding: 0;
+    padding-right: 6px;
+    font-size: 18px;
+    color: #606266;
+  }
+
+  .el-tree-node__expand-icon.is-leaf{
+    color: transparent !important;
+  }
+  
+  .el-tree__empty-block{
+    min-height: auto;
+    .el-tree__empty-text{
+      position: static;
+    }
+  }
+
+}
+.el-checkbox, .el-checkbox__input{
+  position: static;
+}
+.el-checkbox{
+  width: auto;
+}
+

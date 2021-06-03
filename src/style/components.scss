@@ -1,0 +1,208 @@
+@import 'base';
+// 组件各个功能独自样式调整
+
+
+  #terrain-operation-panel{
+    width: 200px ;
+  }
+  #terrain-slope-panel{
+    width: 240px;
+  }
+  #terrain-flood-panel{
+    width: 240px;
+  }
+  #terrain-isoline-panel{
+    width: 240px;
+  }
+  #clip-box-panel{
+    width: 200px;
+  }
+  #clip-plane-panel{
+    width: 150px;
+  }
+  #clip-polygon-panel{
+    width: 200px;
+  }
+  #measure-panel {
+    width: 168px ;
+    .iconfont {
+      font-size: 24px;
+    }
+  }
+  #compass-panel {
+    .iconfont {
+      font-size: 24px;
+    }
+  }
+  #split-screen-panel{
+    width: 230px;
+  }
+
+  #skyLine-panel {
+    @include  cal-width(208px);
+    min-width: 155px;
+  }
+  #echarts_box {
+    position: absolute !important;
+    left: 9%;
+    width: 80%;
+    height: 20%;
+    bottom: 10px;
+    padding: 5px 10px 10px 5px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    color: var(--panel-bg-color);
+    background: rgba(249, 249, 249, 0.8);
+    box-shadow: 0 3px 14px var(--shadow-color);
+    z-index: 999;
+  }
+
+  // 阴影分析
+  .tbtn-width{
+    @include cal-width(53px);
+  }
+  #viewshed{
+    width: 150px;
+  }
+  #profile{
+    width: 150px;
+  }
+
+  #openness-panel{
+    width: 230px;
+  }
+
+  #CustomService-panel{
+    width: 30%;
+    left: 35%;
+    top:25%;
+  }
+
+  // 卷帘
+  #verticalSlider {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    background-color: #D3D3D3;
+    width: 3px;
+    height: 100%;
+    z-index: 100;
+    display: none;
+    cursor: ew-resize;
+  }
+
+  #horizontalSlider {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    background-color: #D3D3D3;
+    width: 100%;
+    height: 3px;
+    z-index: 100;
+    display: none;
+    cursor: ns-resize;
+  }
+
+// 自定义卷帘
+
+  #verticalSliderLeft {
+    @extend #verticalSlider;
+    left: 33%;
+  }
+  #verticalSliderRight {
+    @extend #verticalSlider;
+    left: 66%;
+  }
+
+  #horizontalSliderTop {
+    @extend #horizontalSlider;
+    top: 33%;
+  }
+  #horizontalSliderBottom {
+    @extend #horizontalSlider;
+    top: 66%;
+  }
+
+  #layer-manage-panel{
+    width: 240px;
+  }
+
+
+  // 图层管理右键
+    #contextmenu{
+      max-width: 80px;
+      position: absolute;
+      z-index: 999;
+      background-color: var(--panel-bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 6px;
+      display: none;
+      font-size: 12px;
+      span{
+        display: inline-block;
+        width: 100%;
+      };
+      span:hover{
+        background-color: rgb(216, 213, 213);
+      }
+    }
+
+    #s3mlayer-attribute-panel{
+      width: 280px;
+    }
+
+    #facade-panel{
+      width: 232px;
+    }
+    #fly-route-panel{
+      width: 265px;
+      .fpfFile{
+        position: absolute;
+        right: 20px;
+        border-left: 1px solid var(--border-color);
+        padding-left: 4px;
+        font-size: 18px;
+        &:hover {
+          color: var(--theme-bg-color);
+        }
+      }
+    }
+    #draw-panel{
+      width: 252px;
+      
+    }
+    #scan-effect-panel{
+      width: 260px;
+    }
+    #geological-body-panel{
+      width: 218px;
+    }
+    #volume-panel{
+      width:252px
+    }
+  #mvtlayer-panel{
+    width: 280px;
+  }
+  #mvtlayer-drop-left-panel{
+    width: 130px;
+    top: 320px;
+    right: 210px;
+    max-height: 300px;
+    .sm-half{
+      &:hover{
+        background-color: rgb(223, 221, 221);
+      }
+    }
+  }
+  #mvtlayer-drop-right-panel{
+    width: 130px;
+    right: 60px;
+    top: 320px;
+    max-height: 300px;
+    .sm-half{
+      &:hover{
+        background-color: rgb(223, 221, 221);
+      }
+    }
+  }

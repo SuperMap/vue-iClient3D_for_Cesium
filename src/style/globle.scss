@@ -1,0 +1,523 @@
+// @import 'cover';
+@import 'base';
+@import 'tool';
+@import 'iconfont.css';
+
+html,
+body,
+#app
+{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: var(--font-color);
+  font-family: var(--font-family);
+  // background-color: #000000;
+}
+
+#cesiumContainer {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+} 
+
+// 取消拖动时的选中
+div {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+//阻止鼠标事件
+.pointer-events{
+  pointer-events:none
+}
+
+//内容部分字体大小
+.content-font-size {
+  @include cal-font-size(14px);
+}
+
+//标题部分字体大小
+.title-font-size {
+  @include cal-font-size(var(--title-font-size));
+}
+
+//提示部分字体大小
+.tip-font-size {
+  @include cal-font-size(var(--tip-font-size));
+}
+
+// 组件外层盒子
+.sm-panel {
+  @include  cal-width(var(--panel-width));
+  @include  cal-max-height(var(--panel-max-height));
+  box-sizing: border-box;
+  // padding: 15px 15px 5px 15px;
+  padding: 15px;
+  display: inline-block;
+  position: absolute;
+  top: 68px;
+  right: 60px;
+  z-index: 99;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 6px rgba(26, 26, 26, 0.5);
+  background-color: var(--panel-bg-color);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  /* firefox */
+  -ms-overflow-style: none;
+  .iconfont {
+    font-size: 24px;
+  }
+}
+
+
+.sm-panel::-webkit-scrollbar {
+  display: none;
+  /* Chrome Safari */
+}
+
+/*弹性盒属性*/
+.flex {
+  display: inline-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+.flex-start {
+  justify-content: flex-start !important;
+}
+.flex-end {
+  justify-content: flex-end !important;
+}
+.flex-between {
+  justify-content:space-between !important;
+}
+.flex-around {
+  justify-content:space-around !important;
+}
+
+// 功能模块盒子
+.sm-function-module-sub-section {
+  @extend .flex;
+  @extend .content-font-size;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  @include cal-margin(0,0,10px,0);
+  // background-color: rgba(250, 250, 250, 0.8);
+}
+
+.sm-function-module-btn-highlight {
+  color: var(--theme-bg-color);
+}
+
+label {
+  font-weight: 400;
+  line-height: 1.8;
+  width: 52%;
+  max-width: 100%;
+  overflow: hidden;
+  @extend .content-font-size;
+  @include cal-height(25px)
+}
+
+
+.label-S {
+  @extend label;
+  width: 27%;
+}
+.label-M {
+  @extend label;
+  width: 48%;
+}
+
+.sm-half {
+  @extend .flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  vertical-align: middle;
+  /* 用于功能面板一行放两个控件 */
+  width: 48%;
+  margin: 0;
+  padding: 2px 0;
+  border: none;
+  @media (max-width: 750px) {
+    padding: 0;
+  }
+  @media (max-height: 480px) {
+    padding: 0;
+  }
+}
+
+.sm-margin-M{
+  @include cal-margin(8px,0,8px,0);
+}
+
+
+
+.sm-half-L {
+  @extend .sm-half;
+  width: 100%;
+}
+.sm-half-M {
+  @extend .sm-half;
+  width: 65%;
+}
+.sm-half-S {
+  @extend .sm-half;
+  width: 48%;
+}
+
+.sm-input {
+  @include cal-height(24px);
+  color: var(--font-color);
+  background-color: var(--panel-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0px 3px;
+  box-sizing: border-box;
+}
+
+
+.sm-input-M {
+  @extend .sm-input;
+  width: 48%;
+}
+
+.sm-input-L {
+  @extend .sm-input;
+  width: 75%;
+}
+.sm-input-S {
+  @extend .sm-input;
+  width: 34%;
+}
+
+
+
+
+.sm-point {
+  width: 5px;
+  height: 5px;
+  display: inline-block;
+  background-color: var(--theme-bg-color);
+  border-radius: 50%;
+  margin-bottom: 2px;
+  margin-right: 8px;
+  
+}
+
+
+.sm-select {
+  @extend .content-font-size ;
+  width: 48%;
+  color: var(--font-color);
+  background-color: var(--panel-bg-color);
+  border: 1px solid var(--border-color);
+  padding: 0 ;
+  border-radius: 4px;
+  @include cal-height(25px);
+  box-sizing: border-box;
+}
+
+.sm-select-s {
+  @extend .sm-select;
+  width: 65%;
+}
+.sm-select-m {
+  @extend .sm-select;
+  width: 72%;
+}
+
+.sm-select:after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top: 6px solid var(--theme-bg-color);
+  position: relative;
+  top: 20%;
+  left: 90%;
+  @media (max-width: 750px) {
+    display: none
+  }
+  @media (max-height: 480px) {
+    display: none
+  }
+}
+
+
+input:focus {
+  outline: none;
+  border: 1px solid var(--theme-bg-color);
+}
+
+select:focus {
+  outline: none;
+}
+
+button:focus {
+  // border: none;
+  // background-color: var(--theme-bg-color);
+  color: var(--theme-bg-color);
+  outline: none; //消除默认点击蓝色边框效果
+  border-color: var(--theme-bg-color);
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 12px;
+  border-radius: 4px;
+  /*color: #3C8DBC;*/
+  border: 1px solid var(--border-color);
+  margin: 0;
+  margin-right: 6px;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "\2713";
+  border-color: var(--theme-bg-color);
+  color: var(--theme-bg-color);
+}
+
+input[type="checkbox"]:checked {
+  border-color: var(--theme-bg-color);
+}
+
+input[type="radio"] {
+  margin-left: 0;
+  margin-right: 6px;
+}
+input[type="radio"]:checked {
+  border-color: var(--theme-bg-color);
+  color: var(--theme-bg-color);
+}
+
+
+//分析按钮盒子
+button{
+  @extend .content-font-size;
+}
+.boxchild {
+  @extend .flex;
+  @extend .content-font-size;
+  justify-content: flex-end;
+  @include cal-padding(5px,0,0,0);
+  width: 100%;
+  align-items: center;
+}
+
+//滑块
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+input[type=range]::-moz-range-thumb {
+  -webkit-appearance: none;
+}
+input[type=range]:focus {
+  background-color: red;
+}
+// input[type=range]::-webkit-slider-runnable-track {
+//   height: 10px;
+//   border-radius: 10px; /*将轨道设为圆角的*/
+//   box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+// }
+.sm-slider-input-box {
+  @extend .flex;
+  @extend .flex-between;
+  @include cal-height(26px);
+  width: 72%;
+  align-items: center;
+  // background-color: #231654;
+  // box-sizing: border-box;
+}
+.sm-slider-input-box-M{
+  @extend .sm-slider-input-box;
+  width: 80%;
+  height: 30px;
+  margin-top: 8px;
+  align-items: flex-start;
+}
+
+// .sm-slider-input-box:after {
+//   /*伪元素是行内元素 正常浏览器清除浮动方法*/
+//   content: "";
+//   display: block;
+//   height: 0;
+//   clear: both;
+//   visibility: hidden;
+// }
+
+.min-slider {
+  background: var(--panel-bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--font-color);
+  opacity: 0.6;
+  vertical-align: middle;
+  height: 100%;
+}
+.slider-M{
+  width: 62%;
+}
+.slider-S{
+  width: 34%;
+}
+
+//分析清除按钮
+.tbtn {
+  @extend .content-font-size;
+  font-weight: 400;
+  background-color: var(--panel-bg-color);
+  // margin-left: 5px;
+  border-radius: 4px;
+  color: var(--font-color);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  @include cal-height(26px);
+  @include cal-line-height(24px); 
+  @include cal-width(56px);
+  min-width: 40px;
+}
+
+.tbtn-margin-left{
+  // color: var(--theme-bg-color);
+  // border: 1px solid var(--theme-bg-color);
+  @include  cal-margin(0,0, 0 ,10px);
+}
+
+  //缩小屏幕时隐藏
+.media-hidden {
+  @media (max-width: 750px) {
+    display: none;
+  }
+  @media (max-height: 480px) {
+    display: none;
+  }
+}
+
+.sm-btn {
+  padding: 0px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border: none;
+  margin-top: 6px;
+&:hover {
+  color: var(--theme-bg-color);
+}
+}
+
+//罗盘
+.compass-panel{
+  @extend .flex;
+  position: absolute;
+  top: 6%;
+  right: 10px;
+  flex-wrap: wrap;
+  z-index: 999;
+  box-sizing: border-box;
+  justify-content: center;
+  flex-direction: column;
+  .btn_box{
+    @include  cal-padding(4px,4px,4px,4px);
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    margin: 8px 0;
+    background-color: #fff;
+    border-radius: 4px;
+    &:hover {
+      color: var(--theme-bg-color);
+    }
+  }
+}
+
+// 添加点线面
+.symbolic{
+  @extend .flex-around;
+  border: 1px solid var(--border-color);
+  margin: 6px 0;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  /* firefox */
+  -ms-overflow-style: none;
+}
+
+.symbolic::-webkit-scrollbar {
+  display: none;
+}
+
+.symbolic-box{
+  box-sizing: border-box;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 4px;
+  width: 45px;
+  &:hover {
+    color: var(--theme-bg-color);
+  }
+  label{
+    font-size: 12px;
+    display: block;
+    height: auto;
+  }
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.theme-color{
+  color: var(--theme-bg-color);
+} 
+
+.theme-border-color{
+  border:1px solid var(--theme-bg-color);
+  &:hover{
+    border:1px solid var(--theme-bg-color);
+  }
+} 
+
+ul>li{
+  list-style: none;
+}
+.ul_list{
+    margin: 2px 0 0 2px;
+    padding: 2px;
+    text-align: left;
+    padding-left: 5px;
+    position: absolute;
+    z-index: 100000;
+    border: 1px solid var(--border-color);
+    max-width: 40%;
+    min-width: 50px;
+    border-radius: 4px;
+}
+
+
+
+
+
+// 组件单独样式覆盖
+@import 'components';
