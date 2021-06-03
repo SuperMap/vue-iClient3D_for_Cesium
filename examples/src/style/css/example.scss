@@ -1,0 +1,117 @@
+
+html,
+body,
+#app
+{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+}
+/*包含以下四种的链接*/
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+/*正常的未被访问过的链接*/
+a:link {
+    text-decoration: none;
+}
+/*已经访问过的链接*/
+a:visited {
+    text-decoration: none;
+}
+/*鼠标划过(停留)的链接*/
+a:hover {
+    text-decoration: none;
+}
+/* 正在点击的链接*/
+a:active {
+    text-decoration: none;
+}
+
+
+.el-main{
+    padding:0 !important; 
+    background-color: #212121;
+    position: relative;
+    overflow: hidden;
+}
+.el-container{
+    height: 94%;
+}
+.el-popper {
+    // max-width: 240px !important;
+    background: #424242 !important;
+    border: none !important;
+  }
+.el-picker__popper {
+    background: #ffffff !important;
+}
+
+.el-popper .box{
+    padding: 10px 15px 0 15px !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    max-height: 90%;
+    width: 240px;
+}
+  
+.el-popper .box::-webkit-scrollbar {
+    display: none;
+}
+
+.el-menu  .el-submenu__title, .el-menu-item{
+    height: 45px;
+    line-height: 45px;
+    padding-left: 8px !important;
+}
+.el-menu .el-menu--inline .el-submenu__title{
+    padding-left: 40px !important;
+}
+.el-submenu .el-menu .el-menu-item{
+    padding-left: 40px !important;
+    [class^="el-icon-"] {
+        margin-right: 0;
+        position: absolute;
+        right: 14px;
+        top:14px;
+      }
+      [class^="el-icon-"]:hover {
+        color: #ffffff;
+      }
+}
+
+
+
+.el-submenu__icon-arrow,.el-submenu__title i,.el-menu-item i{
+    color: #ffffff !important;
+  }
+
+.el-popover.el-popper{
+    padding: 5px ;
+    color: #ffffff;
+    .el-popconfirm {
+      .el-popconfirm__main {
+        margin: 2px;
+      }
+      .el-popconfirm__action {
+        .el-button--mini {
+            min-height: 20px;
+            font-size: 12px;
+            border-radius: 3px;
+            padding: 4px 4px;
+        }
+      }
+    }
+    .el-popper__arrow::before{
+        border: none; 
+        background: #424242 ; 
+    }
+    
+  }
+ 
