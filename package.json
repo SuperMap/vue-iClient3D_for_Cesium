@@ -1,0 +1,72 @@
+{
+  "name": "@supermap/iclient3d-vue-for-webgl",
+  "version": "1.0.3",
+  "description": "Supermap iClient3D WebGL for Vue.js",
+  "homepage": "https://www.supermapol.com/earth/vue-iEarth/examples/index.html",
+  "main": "lib/index.min.js",
+  "module": "lib/index.js",
+  "author": "huangyiqin <huangyiqin@supermap.com>",
+  "private": false,
+  "files": [
+    "lib",
+    "public"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "SuperMap",
+    "iClient3D",
+    "WebGL",
+    "vue3",
+    "Cesium"
+  ],
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.min.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite ",
+    "build": "vite build",
+    "build:js": "rollup --config",
+    "build:style": "gulp --gulpfile build-style.js"
+  },
+  "dependencies": {
+    "element-plus": "^1.0.2-beta.36",
+    "vue": "^3.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.12.11",
+    "@rollup/plugin-image": "^2.0.6",
+    "@vitejs/plugin-vue": "^1.0.4",
+    "@vue/babel-plugin-jsx": "^1.0.3",
+    "@vue/compiler-sfc": "^3.0.4",
+    "axios": "^0.21.1",
+    "babel-plugin-import": "^1.13.3",
+    "dayjs": "^1.10.4",
+    "echarts": "^5.0.2",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.1.0",
+    "rollup": "^2.37.0",
+    "rollup-plugin-alias": "^2.2.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-externals": "^2.2.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-scss": "^2.6.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-uglify": "^6.0.4",
+    "rollup-plugin-vue": "^6.0.0",
+    "sass": "^1.32.4",
+    "vite": "^2.0.0-beta.35",
+    "vite-plugin-style-import": "^0.5.5"
+  }
+}
