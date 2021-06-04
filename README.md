@@ -1,5 +1,20 @@
 # <center>@supermap/vue-iclient3d-webgl</center>
 
+# Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:3000
+npm run dev
+
+# build for production with minification
+npm run build:js
+npm run build:style
+
+```
+
 # 简介
 ### 特点：
 - 采用当前Vue3升级组件，相比原来有更快的速度和更好的性能
@@ -9,14 +24,12 @@
 ### 示例：https://www.supermapol.com/earth/vue-iEarth/examples/index.html
 
 
-# 安装
+# 开发
+#### 方法一：Vue工程，NPM 安装：
 
 ``` bash
 npm install @supermap/iclient3d-vue-for-webgl --save-d
 ```
-
-# 开发
-#### 方法一：Vue工程，NPM 安装：
 
 ##### 1、修改main.js文件：
 
