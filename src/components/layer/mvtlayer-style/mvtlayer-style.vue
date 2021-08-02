@@ -24,19 +24,19 @@
       </div>
       <div class="sm-half-L">
         <label style="width:auto">
-          <input type="checkbox" v-model="showLayer" />显示图层
+          <input type="checkbox" v-model="showLayer" />图层显隐
         </label>
         <label style="width:auto">
           <input type="checkbox" v-model="textAvoidance" />文字避让
         </label>
         <label style="width:auto">
-          <input type="checkbox" v-model="isClickShowProperty" />显示图层要素
+          <input type="checkbox" v-model="isClickShowProperty" />图层属性
         </label>
         <label style="width:auto">
           <input type="checkbox" v-model="openFilter" />查询过滤
         </label>
       </div>
-      <div v-show="openFilter">
+      <div v-show="openFilter" style="width:100%">
         <div class="sm-half-L" style="margin-top:5px">
           <label style="width:28%">选择子图层</label>
           <select class="sm-select" style="width:70%" v-model="selectedChildLayerIndex">
@@ -47,25 +47,46 @@
             >{{ Clayer }}</option>
           </select>
         </div>
-        <div class="sm-half-L">
-          <label style="width:auto">
-            <input type="checkbox" v-model="isShowproPerties" />显示子图层属性
-          </label>
-          <label style="width:auto">
-            <input type="checkbox" v-model="isShowSymbol" />显示运算符号
-          </label>
-        </div>
-        <div class="sm-half-L">
+
+        <div class="sm-half-L" style="padding:6px 0 6px 0">
           <label style="width: 28%;">设置条件</label>
-          <input
-            type="text"
-            min="0"
-            class="sm-input"
-            style="width:70%"
-            v-model="setFilterString"
-            ref="setFilterString_dom"
-          />
+          <div>
+            <button class="tbtn" type="button" style="width:auto" v-on:click="addCondition(true)">增行</button>
+            <button
+              class="tbtn tbtn-margin-left"
+              type="button"
+              style="width:auto"
+              v-on:click="addCondition(false)"
+            >删行</button>
+          </div>
         </div>
+        <div class="sm-half-L">
+          <table class="tab tab2">
+            <tbody>
+              <tr>
+                <th>属性</th>
+                <th>条件</th>
+                <th>值</th>
+              </tr>
+              <tr v-for="(pro,index) in selectedPropertyKeys" :key="index">
+                <td style="position: relative;">
+                  <select class="sm-select" v-model="selectedPropertyKeys[index]">
+                    <option v-for="(key) in propertyKeys" :key="key" :value="key">{{ key }}</option>
+                  </select>
+                  <input type="text"  class="input" v-model="inputPropertys[index]"/>
+                </td>
+                <td style="position: relative;"><select class="sm-select" v-model="selectedSymbols[index]">
+                    <option v-for="(key) in symbols" :key="key" :value="key">{{ key }}</option>
+                  </select>
+                  <input type="text" class="input" v-model="inputSymbols[index]"/></td>
+                <td>
+                  <input type="text" class="input2" v-model="inputValues[index]"/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <div class="boxchild">
           <button class="tbtn" type="button" style="width:auto" v-on:click="propertySearch">查询</button>
           <button
@@ -90,31 +111,6 @@
     v-show="isShowproPerties && propertyKeys.length>0"
     v-drag
   >
-    <div class="sm-function-module-sub-section" style="margin:0" v-stopdrag>
-      <div
-        class="sm-half-L"
-        v-for="(key) in propertyKeys"
-        :key="key"
-        @click="clickProperty(key)"
-      >{{key}}</div>
-    </div>
-  </div>
-  <div
-    id="mvtlayer-drop-right-panel"
-    class="sm-panel"
-    style="width:130px"
-    v-show="isShowSymbol"
-    v-drag
-  >
-    <div class="sm-function-module-sub-section" style="margin:0" v-stopdrag>
-      <div
-        class="sm-half"
-        style="justify-content: center"
-        v-for="(key) in symbols"
-        :key="key"
-        @click="clickProperty(key)"
-      >{{key}}</div>
-    </div>
   </div>
 
   <div id="bubble" class="bubble-tabel" ref="bubble" v-drag v-show="bubbleShow">
@@ -174,24 +170,25 @@ export default {
       mvtAlpha,
       showLayer,
       textAvoidance,
-      clickProperty,
-      isShowproPerties,
-      isShowSymbol,
       propertyKeys,
       symbols,
       openFilter,
-      setFilterString,
       propertySearch,
       propertyFilter,
       clear,
-      setFilterString_dom,
       isClickShowProperty,
       clickGetFeature,
       bubble,
       closeBubble,
       dockBubble,
       dockFontShow,
-      bubbleShow
+      bubbleShow,
+      selectedPropertyKeys,
+      selectedSymbols,
+      inputPropertys,
+      inputSymbols,
+      inputValues,
+      addCondition
     } = mvtlayerStyle(props);
     return {
       layerNames,
@@ -201,24 +198,25 @@ export default {
       mvtAlpha,
       showLayer,
       textAvoidance,
-      clickProperty,
-      isShowproPerties,
-      isShowSymbol,
       propertyKeys,
       symbols,
       openFilter,
-      setFilterString,
       propertySearch,
       propertyFilter,
       clear,
-      setFilterString_dom,
       isClickShowProperty,
       clickGetFeature,
       bubble,
       closeBubble,
       dockBubble,
       dockFontShow,
-      bubbleShow
+      bubbleShow,
+      selectedPropertyKeys,
+      selectedSymbols,
+      inputPropertys,
+      inputSymbols,
+      inputValues,
+      addCondition
     };
   }
 };

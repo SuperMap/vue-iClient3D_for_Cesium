@@ -51,12 +51,12 @@
           {{Resource.rain}}
         </label>
         <label style="width:28%">
-          <input type="checkbox" v-model="rain" />
-          {{Resource.rain}}
+          <input type="checkbox" v-model="snow" />
+          {{Resource.snow}}
         </label>
         <label style="width:33%">
           <input type="checkbox" v-model="isCompass" />
-          {{Resource.isCompass}}
+          {{Resource.compass}}
         </label>
         <label style="width:33%"></label>
       </div>

@@ -17,9 +17,10 @@ function sightLine(props) {
         viewPosition: null,
         visibleColor: "rgb(0, 200, 0)",
         hiddenColor: "rgb(200, 0, 0)",
-        highlightBarrierColor: "rgba(255, 186, 1, 1)",
+        barrierColor: "rgba(255, 186, 1, 1)",
         highlightBarrier: false,
         lineWidth: 3,
+        showBarrierPoints:true
     });
 
     // 传入props改变默认值
@@ -75,7 +76,7 @@ function sightLine(props) {
         viewer._element.style.cursor = "";
         document.body.classList.add("measureCur");
         if (tipFlag) {   //只提示一次
-            window.tooltip.showAt(' <p>点击鼠标左键确认观察者位置</p><p>再点击左键确认目标位置</p> <p>右键单击结束分析</p>', '250px');
+            window.tooltip.showAt(' <p>点击鼠标左键确认观察者位置</p><p>再点击左键确认目标位置</p> <p>右键单击结束分析</p>', '400px');
             tipFlag = false
         }
         dragEntity.removeEventListener() //清除编辑交互事件
@@ -139,7 +140,7 @@ function sightLine(props) {
         viewer.entities.add(new Cesium.Entity({
             id: 'sightPoint_view',
             point: new Cesium.PointGraphics({
-                color: Cesium.Color.fromCssColorString(state.highlightBarrierColor),
+                color: Cesium.Color.fromCssColorString(state.barrierColor),
                 pixelSize: 10
             }),
             position: new Cesium.CallbackProperty(() => {
@@ -152,7 +153,7 @@ function sightLine(props) {
         viewer.entities.add(new Cesium.Entity({
             id: 'sightPoint_Target' + i,
             point: new Cesium.PointGraphics({
-                // color: Cesium.Color.fromCssColorString(state.highlightBarrierColor),
+                // color: Cesium.Color.fromCssColorString(state.barrierColor),
                 color:new Cesium.CallbackProperty(() => {
                     return Cesium.Color.fromCssColorString(sightBarrierPointsColor[i]);
                 }, false),
@@ -164,8 +165,9 @@ function sightLine(props) {
         }));
     }
     // 绘制障碍点圆锥
+    let barrierCones = [];
     function addBarrierCone(i) {
-        viewer.entities.add({
+       let ab = viewer.entities.add({
             name: 'Point_Barrier' + i,
             position: new Cesium.CallbackProperty(() => {
                 return (sightBarrierPoints[i]);
@@ -178,6 +180,7 @@ function sightLine(props) {
                 material: Cesium.Color.fromCssColorString("#d60000")
             }
         });
+        barrierCones.push(ab)
     }
 
     // 鼠标移动实时分析
@@ -230,7 +233,7 @@ function sightLine(props) {
                     for (let i = 0, j = sightBarrierPoints.length; i < j; i++) {
                         setBarrierPoints('sightPoint_Target' + i,true)
                     }
-                } else {
+                } else if(Entity.id.includes('sightPoint_Target')){
                     setBarrierPoints(Entity.id)
                 }
                 function setBarrierPoints(Barrier_id,isPointView) {
@@ -273,8 +276,8 @@ function sightLine(props) {
         })
     }
     // 获取障碍物
-    function getHighlightBarriers() {
-        let color = Cesium.Color.fromCssColorString(state.highlightBarrierColor);
+    function getHighlightBarriers(barrierColor) {
+        let color = Cesium.defaultValue(barrierColor,Cesium.Color.fromCssColorString(state.barrierColor));
         try {
             if (ObjectIds.length === 0) return;
             ObjectIds.forEach((ObjectId) => {
@@ -308,12 +311,30 @@ function sightLine(props) {
         document.body.classList.remove("measureCur");
         window.tooltip.setVisible(false);
         state.viewPosition = null;
+        barrierCones.length = 0;
         viewer.eventManager.removeEventListener("CLICK", LEFT_CLICK); //移除鼠标点击事件监听
         viewer.eventManager.removeEventListener("MOUSE_MOVE", MOUSE_MOVE); //移除鼠标点击事件监听
         viewer.eventManager.removeEventListener("RIGHT_CLICK", RIGHT_CLICK); //移除鼠标点击事件监听
     };
 
     // 监听
+    watch(() => state.lineWidth, val => {
+        if(sightline) sightline.lineWidth = Number(val);
+    });
+    watch(() => state.visibleColor, val => {
+        if(sightline) 
+        sightline.visibleColor = Cesium.Color.fromCssColorString(val);
+    });
+    watch(() => state.hiddenColor, val => {
+        if(sightline) 
+        sightline.hiddenColor = Cesium.Color.fromCssColorString(val);
+    });
+    watch(() => state.barrierColor, val => {
+        if(ObjectIds.length === 0) return;
+        let color  = Cesium.Color.fromCssColorString(val);
+        getHighlightBarriers(color);
+    });
+    
     watch(() => state.highlightBarrier, newValue => {
         if (newValue) {
             getHighlightBarriers()
@@ -323,6 +344,13 @@ function sightLine(props) {
             }
         }
     });
+    watch(() => state.showBarrierPoints, val => {
+        if(barrierCones.length === 0) return;
+        barrierCones.forEach((b)=>{
+            b.show = val
+        })
+    });
+    
 
     // 销毁
     onBeforeUnmount(() => {

@@ -66,7 +66,7 @@
             v-model="particleSize "
             :min="0"
             :step="1"
-            :max="60"
+            :max="20"
             input-size="mini"
             :debounce="500"
             tooltip-class="tooltip-class"
@@ -142,7 +142,7 @@
             style="width:67%"
           ></el-slider>
         </div>
-        <div class="sm-half-L" v-show="flameTyle === 'ordinary'">
+        <div class="sm-half-L" v-show="flameTyle === '0'">
           <label style="width:30%">{{Resource.launchType}}</label>
           <select class="sm-select-m" style="width:66%" v-model="particleSystemType">
             <option value="circular">{{Resource.circularRadiation}}</option>
@@ -165,10 +165,7 @@ import particleSystem from "./particle-system";
 export default {
   name: "Sm3dParticleSystem",
   props: {
-    //扫描线模式lineMode/ringMode
-    scanMode: {
-      type: String
-    }
+   
   },
   data() {
     return {};

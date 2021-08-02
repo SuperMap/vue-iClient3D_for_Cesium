@@ -17,10 +17,14 @@ window.URL_CONFIG = URL_CONFIG
 // 引入样式
 
 import './style/css/example.scss'
-import '@/style/globle.scss'
+// import '@/style/globle.scss'
+import '../../src/style/globle.scss'
 
 // 引入组件库
-import s from "@/components/components.js"
+import s from "../../src/components/components.js"
 app.use(s)  
 
+
 app.mount('#app')
+
+

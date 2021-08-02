@@ -17,27 +17,28 @@ function mvtlayerStyle(props) {
         showLayer: true,  //显隐图层
         textAvoidance: true,  //文字避让
         openFilter: false,
-        isShowproPerties: false,  //显示当前子图层属性
-        isShowSymbol: false,  //显示运算符号
         propertyKeys: [],  //子图层属性数组
         symbols: [],  //符号数组
         clickGetFeature: { layer: { id: null }, id: null }, //点击查询属性
-        setFilterString: '',  //设置过滤或查询条件语句
-        isClickShowProperty: false,  //是否点击显示要素
+        isClickShowProperty: true,  //是否点击显示要素
         dockFontShow: true, //停靠图标显示
-        bubbleShow: false  //悬浮窗口显示
+        bubbleShow: false,  //悬浮窗口显示
+        selectedPropertyKeys: [''],  //下拉选择属性
+        selectedSymbols: [''], //下拉选择符号
+        inputPropertys: [''], //输入框属性
+        inputSymbols: [''], //输入框符号
+        inputValues: [''],  //输入框值
     })
 
     // 初始化数据
     let mvtLayers, selectedLayer, selectedChildLayer;
     let saveOldPropertyStates = [];
     let isFilter = false;
-    let setFilterString_dom = ref(null);
     const bubble = ref(null);
     state.symbols = ['!', '!=', '>', '>=', '<', '<=', '==', 'in', 'like', '!like', 'left', 'right'];
 
     if (storeState.isViewer) {
-        setTimeout(()=> getLayerNames(),500)
+        setTimeout(() => getLayerNames(), 500)
     }
     //viewer 初始化完成的监听
     watch(() => storeState.isViewer, val => {
@@ -62,24 +63,48 @@ function mvtlayerStyle(props) {
             if (state.selectedLayerIndex = 'none') {
                 state.selectedLayerIndex = 0;
             }
-        }else{
+        } else {
             state.selectedLayerIndex = 'none'
         }
+        viewer.eventManager.addEventListener("CLICK", clickShowProperty, true);
     }
 
 
     // 分析
-    //点击属性添加到语句
-    function clickProperty(text) {
-        if (setFilterString_dom.value)
-            setFilterString_dom.value.focus();
-        if (text == 'left' || text == 'right') {
-            state.setFilterString += text;
-            return;
+    // 增行删行
+    function addCondition(flag) {
+        if (!flag) {
+            state.selectedPropertyKeys = deletelast(state.selectedPropertyKeys);
+            state.selectedSymbols = deletelast(state.selectedSymbols);
+            state.inputSymbols = deletelast(state.inputSymbols);
+            state.inputPropertys = deletelast(state.inputPropertys);
+            state.inputValues = deletelast(state.inputValues);
+            return
         }
-        state.setFilterString += text + ' ';
+        state.selectedPropertyKeys = state.selectedPropertyKeys.concat(['']);
+        state.selectedSymbols = state.selectedSymbols.concat(['']);
+        state.inputSymbols = state.inputSymbols.concat(['']);
+        state.inputPropertys = state.inputPropertys.concat(['']);
+        state.inputValues = state.inputValues.concat(['']);
     }
-
+    function deletelast(arr) {
+        return arr.slice(0, arr.length - 1)
+    }
+    // 获取过滤条件
+    function getFilter() {
+        if (state.inputPropertys[0] == '') return false;
+        let filterArr = ['any'];
+        state.inputPropertys.forEach((pro, i) => {
+            let arr = [];
+            arr[0] = state.inputSymbols[i];
+            arr[1] = pro;
+            arr[2] = state.inputValues[i];
+            if (typeof (Number(arr[2])) == 'number') arr[2] = Number(arr[2]);
+            filterArr.push(arr);
+        })
+        if (filterArr.length < 2) return false;
+        return filterArr
+    }
 
 
     // 查询功能
@@ -90,33 +115,12 @@ function mvtlayerStyle(props) {
         }
     }
 
-    // 获取查询过滤语句
-    function getFilter() {
-        let str = state.setFilterString.trim();
-        if (str == '') return false;
-        let filterArr = ['any'];
-        let conditions = str.split(';');
-        conditions.forEach((condition) => {
-            let arr = condition.split(' ').filter((el) => { return el != '' });
-            if (arr.length == 3) {
-                let val = arr[0];
-                arr[0] = arr[1];
-                arr[1] = val;
-                if (typeof (Number(arr[2])) == 'number') arr[2] = Number(arr[2]);
-                filterArr.push(arr)
-            } else {
-                tool.Message.warnMsg('请检查条件格式是否正确？')
-            }
-        })
-        if (filterArr.length < 2) return false;
-        return filterArr
-    }
-
     let highlightLayer;
 
     // 设置查询高亮图层
     function setHighlightLayer(filter) {
         if (highlightLayer) clearSearch();
+        if (!selectedChildLayer) return;
         let highlightLayerID = selectedChildLayer.id + "_highlight";
         // var highlightLayer = highlightLayers[highlightLayerID];
         if (!highlightLayer) {
@@ -142,6 +146,7 @@ function mvtlayerStyle(props) {
     function propertyFilter() {
         let filter = getFilter();
         isFilter = true;
+        if (!selectedLayer) return;
         selectedLayer.mapboxStyle.layers.forEach((ly) => {
             selectedLayer.setLayoutProperty(ly.id, 'visibility', 'none');//隐藏图层
         })
@@ -190,8 +195,8 @@ function mvtlayerStyle(props) {
         selectedLayer.setFilter(selectedChildLayer.id, null)
         selectedLayer.refresh();
         isFilter = false;
-        state.setFilterString = '';
     }
+
 
     function clear() {
         clearSearch();
@@ -214,7 +219,7 @@ function mvtlayerStyle(props) {
     }
 
     watch(() => state.selectedLayerIndex, val => {
-        if(val === 'none') return;
+        if (val === 'none') return;
         saveOldPropertyStates.length = 0;
         selectedLayer = mvtLayers[val];
         state.showLayer = selectedLayer.show;
@@ -228,7 +233,6 @@ function mvtlayerStyle(props) {
                     saveOldPropertyStates.push(visible);
                 });
                 state.selectedChildLayerIndex = 0;
-                console.log(selectedLayer)
             }
         })
     });
@@ -240,14 +244,6 @@ function mvtlayerStyle(props) {
             state.propertyKeys = [];
         } else {
             state.propertyKeys = features[0]._keys.length > 0 ? features[0]._keys : [];
-        }
-    });
-    watch(() => state.isShowproPerties, val => {
-        if (!selectedLayer) return;
-        if (state.propertyKeys.length < 1) {
-            let features = selectedLayer.querySourceFeatures({ sourceLayer: selectedChildLayer.id, filter: ["<", "$id", 10] });
-            if (features.length > 0)
-                state.propertyKeys = features[0]._keys;
         }
     });
     watch(() => state.mvtAlpha, val => {
@@ -274,8 +270,28 @@ function mvtlayerStyle(props) {
         viewer.eventManager.removeEventListener("CLICK", clickShowProperty); //移除鼠标点击事件监听
         state.bubbleShow = false
     });
+    watch(() => state.selectedPropertyKeys, (val, old) => {
+        if (val.length !== old.length) return;
+        val.forEach((spro, i) => {
+            state.inputPropertys[i] = spro;
+        })
+    }, { deep: true })
+    watch(() => state.selectedSymbols, (val, old) => {
+        if (val.length !== old.length) return;
+        val.forEach((ssym, i) => {
+            if (ssym === 'left' || ssym === 'right') {
+                if (state.inputPropertys[i] !== '' && !state.inputPropertys[i].includes('left(') && !state.inputPropertys[i].includes('right(')) {
+                    state.inputPropertys[i] = ssym + '(' + state.inputPropertys[i] + ',' + 2 + ')';
+                    return;
+                }
+                state.inputPropertys[i] = ssym + '()';
+                return;
+            }
+            state.inputSymbols[i] = ssym;
+        })
+    }, { deep: true })
 
-
+    
 
     // 销毁
     onBeforeUnmount(() => {
@@ -286,11 +302,10 @@ function mvtlayerStyle(props) {
 
     return {
         ...toRefs(state),
-        clickProperty,
+        addCondition,
         propertySearch,
         propertyFilter,
         clear,
-        setFilterString_dom,
         bubble,
         closeBubble,
         dockBubble

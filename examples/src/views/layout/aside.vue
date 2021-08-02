@@ -1,5 +1,6 @@
 <template >
   <el-container>
+    <!-- 侧边栏 --start -->
     <el-aside :class="asideWidth" id="el-aside">
       <el-menu
         :collapse="isCollapse"
@@ -19,7 +20,6 @@
             style="display:block;margin:0"
             :class="isCollapse?'rotate':'rotate2'"
           ></i>
-          <!-- <template #title>{{isCollapse?'展开':'折叠'}}</template> -->
         </el-menu-item>
 
         <!-- 加载数据 -->
@@ -57,32 +57,9 @@
               </div>
             </div>
           </el-submenu>
-
-          <!-- <el-submenu index="1-4"  @click="addCustomService">
-            <template #title >自定义服务</template>
-            <div v-for="(service,index) in addCustomServices" :key="index">
-              <el-menu-item
-                :index="'1-4-'+index"
-                @contextmenu.prevent="DeleteServices(service,index)"
-              >
-                {{service.name}}
-                <el-popconfirm
-                  title="确定删除吗？"
-                  confirmButtonText="确认"
-                  cancelButtonText="取消"
-                  @confirm="DeleteServices(service,index)"
-                >
-                  <template #reference>
-                    <i class="el-icon-circle-close" title="删除"></i>
-                  </template>
-                </el-popconfirm>
-              </el-menu-item>
-            </div>
-          </el-submenu>-->
-
           <el-menu-item index="1-5" @click="addCustomService">自定义服务</el-menu-item>
           <div v-for="(service,index) in addCustomServices" :key="index">
-            <el-menu-item :index="'1-5-'+index" @click="flytoCustomService(service)">
+            <el-menu-item :index="'1-5-'+index" @click="flytoCustomService(service)" title="点击定位">
               {{service.name}}
               <el-popconfirm
                 title="确定删除吗？"
@@ -124,38 +101,43 @@
         </el-submenu>
       </el-menu>
     </el-aside>
+    <!-- 侧边栏部分--end -->
 
+    <!-- 右侧内容展示部分 -->
     <el-main>
       <loading-bar></loading-bar>
+      <!-- 添加自定义服务组件 -->
       <component
         :is="addService"
         :clear-callback="addCustomService"
         :add-callback="addCallback"
         :get-layer-name="getName"
       ></component>
+      <!-- viewer组件 -->
       <component :is="initViewer" :after-initviewer="removeLoad" :opening-animation="true"></component>
+      <!-- 分析功能组件 -->
       <keep-alive>
         <component
           :is="view"
           :delete-callback="deleteCallback"
-          data-url="public/data/netcdf/result_100_200_9_40.nc"
+          data-url="public/data/netcdf/result_100_200_9_40.nc"  
+          skylineSpatialAnalysisUrl="http://www.supermapol.com/realspace/services/spatialAnalysis-data_all/restjsr/spatialanalyst/geometry/3d/skylinesectorbody.json"
         ></component>
       </keep-alive>
-      <!-- 单独演示类组件,需要销毁 -->
+      <!-- 地质体组件,单独展示，需要销毁 -->
       <component :is="view2"></component>
     </el-main>
-    <!-- </el-container> -->
   </el-container>
 </template>
 
 <script>
-import config from "config/views_config.js";
-import server_config from "config/server_config.js";
-import server_flyTo_config from "config/server_position_config";
-import layerManagement from "@/js/common/layerManagement.js";
-import camera from "@/js/common/camera.js";
-import loadingBar from "../../components/loading.vue";
-// import Sm3dViewer from '@/components/viewer/index.js'
+import config from "config/views_config.js";  //组件配置
+import server_config from "config/server_config.js";  //服务配置
+import server_flyTo_config from "config/server_position_config";  //服务坐标配置
+import layerManagement from "@/js/common/layerManagement.js";  //图层管理封装方法
+import camera from "@/js/common/camera.js";  //相机操作
+import loadingBar from "../../components/loading.vue";  //加载动画
+
 export default {
   name: "layout-aside",
   components: {
@@ -163,8 +145,8 @@ export default {
   },
   data() {
     return {
-      activeIndex: "1",
-      activeIndex2: "1",
+      // activeIndex: "1",
+      // activeIndex2: "1",
       isCollapse: false,
       asideWidth: "asideWidth1",
       view: "",
@@ -178,16 +160,13 @@ export default {
       baseLayerObj: server_config[1].children[0],
       terrainLayerObj: null,
       addCustomServices: [],
-      getNames: [],
-      storeState: store.storeState
+      getNames: [],  //记录自定义服务名称
+      varName: null, //临时保存当前自定义名称
     };
   },
-  computed: {
-    changeLayers: function() {
-      return this.storeState.changeLayers;
-    }
-  },
+
   methods: {
+    // 区分地质体组件（需销毁）和其他组件
     change(val, val2) {
       if (val2) {
         this.view = "";
@@ -205,6 +184,8 @@ export default {
         this.view = val;
       }
     },
+
+    //添加公共服务
     addWebServe(obj) {
       if (obj.state === 0) {
         // add mvt
@@ -216,22 +197,28 @@ export default {
           return;
         }
         // add scene
-        layerManagement.addScene(obj.proxiedUrl, {}, layers => {
-          obj.state = 1;
-          store.actions.setChangeLayers();
-          // 白膜添加线框
-          if (obj.style && obj.style.fillStyle) {
-            layers[0].style3D.lineColor = Cesium.Color.fromCssColorString(
-              "rgb(67,67,67)"
-            );
-            layers[0].style3D.fillStyle = Cesium.FillStyle[obj.style.fillStyle];
+        layerManagement.addScene(
+          obj.proxiedUrl,
+          { autoSetView: true },
+          layers => {
+            obj.state = 1;
+            store.actions.setChangeLayers();
+            // 白膜添加线框
+            if (obj.style && obj.style.fillStyle) {
+              layers[0].style3D.lineColor = Cesium.Color.fromCssColorString(
+                "rgb(67,67,67)"
+              );
+              layers[0].style3D.fillStyle =
+                Cesium.FillStyle[obj.style.fillStyle];
+            }
           }
-        });
+        );
         this.flyTo(obj.name, server_flyTo_config);
       } else {
         this.flyTo(obj.name, server_flyTo_config);
       }
     },
+    // 添加底图
     addBaseLayer(obj) {
       if (this.baseLayerObj.type === obj.type) return;
       this.baseLayerObj.state = 0;
@@ -253,7 +240,7 @@ export default {
           imageryProvider = new Cesium.BingMapsImageryProvider({
             url: url,
             key:
-              "AkOyUpgDCoz063AWW1WfHnxp5222UBdxLOp1XvRv0tuebQnr2S7UcZkiLgME7gX0"
+              "Aq0D7MCY5ErORA9vrwFtfE9aancUq5J6uNjw0GieF0ostaIrVuJZ8ScXxNHHvEwS"
           });
           break;
         case "TIANDITU":
@@ -316,6 +303,7 @@ export default {
         );
       }
     },
+    // 添加在线地形
     addOnlineTerrain(obj) {
       if (this.terrainLayerObj) this.terrainLayerObj.state = 0;
       obj.state = 1;
@@ -345,11 +333,13 @@ export default {
       }
     },
 
+    // 移除地形
     removeTerrainLayer() {
       viewer.terrainProvider = new Cesium.EllipsoidTerrainProvider({
         ellipsoid: viewer.scene.globe.ellipsoid
       });
     },
+
     addDatas(id, obj) {
       switch (id) {
         case "webServe":
@@ -363,6 +353,8 @@ export default {
           break;
       }
     },
+    
+    // 初始化viewer后的传入回调：添加底图和清除加载动画
     removeLoad() {
       this.addBaseLayer(server_config[1].children[1]); //默认添加底图BingMap
       setTimeout(() => {
@@ -371,7 +363,8 @@ export default {
         document.getElementById("el-aside").classList.remove("disable"); //解除禁止点击
       }, 1000);
     },
-    // 删除场景
+
+    // 删除场景公共服务
     DeleteDates(datatype, obj) {
       switch (datatype) {
         case "webServe":
@@ -400,10 +393,12 @@ export default {
         });
       });
     },
+    // 自定义服务点击定位
     flytoCustomService(obj) {
-      console.log(obj);
       camera.flyByLayerName(obj.layers[0].type, obj.layers[0].layerName);
     },
+
+    // 控制自定义服务组件显隐
     addCustomService() {
       if (this.addService === "") {
         this.addService = "Sm3dCustomService";
@@ -411,11 +406,11 @@ export default {
         this.addService = "";
       }
     },
-    addCallback(layers) {
+    // 自定义服务添加回调函数
+    addCallback(layers, add_type) {
       if (!Array.isArray(layers)) {
         layers = [layers];
       }
-      console.log(layers);
       let serviceOption = [];
       for (let i = 0; i < layers.length; i++) {
         if (layers[i].hasOwnProperty("_isS3MB")) {
@@ -426,7 +421,6 @@ export default {
               : "s3m_" + new Date().getTime().toFixed(6)
           };
           serviceOption.push(option);
-          viewer.flyTo(layers[i]);
           if (!layers[i].maxVisibleAltitude)
             layers[i].maxVisibleAltitude = 8000;
         } else if (viewer.imageryLayers.contains(layers[i])) {
@@ -437,7 +431,6 @@ export default {
               : "image" + new Date().getTime().toFixed(6)
           };
           serviceOption.push(option);
-          viewer.flyTo(layers[i]);
         } else if (
           layers[i].imageryLayer &&
           layers[i].imageryLayer._imageryProvider instanceof
@@ -450,7 +443,6 @@ export default {
               : "mvt" + new Date().getTime().toFixed(6)
           };
           serviceOption.push(option);
-          viewer.flyTo(layers[i]);
           let index = this.addCustomServices.length;
           let obj = {
             name: layers[i].name ? layers[i].name : "自定义服务" + index,
@@ -467,20 +459,26 @@ export default {
           serviceOption.push(option);
         }
       }
+      if (this.varName) this.getNames.push(this.varName);
       let index = this.addCustomServices.length;
       let len = this.getNames.length - 1;
       let obj = {
-        name: this.getNames[len] ? this.getNames[len] : "自定义服务" + index,
+        name: this.varName ? this.varName : "自定义服务" + index,
         layers: serviceOption
       };
       this.addCustomServices.push(obj);
       this.addService = "";
-    },
-    
-    getName(name) {
-      this.getNames.push(name);
+      this.varName = undefined;
+      if ((add_type && add_type === "SCENE") || add_type === "TERRAIN") return;
+      camera.flyByLayerName(add_type, obj.layers[0].layerName); //定位
     },
 
+    // 自定义服务获取名称回调
+    getName(name) {
+      this.varName = name;
+    },
+
+    // 添加服务飞行函数(公共服务配置好的定位)
     flyTo(webName, obj) {
       let cameraParam = obj[webName];
       if (cameraParam) {
@@ -495,12 +493,13 @@ export default {
             pitch: cameraParam.pitch,
             roll: cameraParam.roll
           },
-          duration: 5
+          duration: 0
         });
         return;
       } else {
       }
     },
+
     //图层管理右键删除回调
     deleteCallback(node_rightClick) {
       this.server_config[0].children.forEach(sceneObj => {
@@ -513,6 +512,7 @@ export default {
       });
     }
   },
+  
   watch: {
     isCollapse(val) {
       if (val) {
@@ -620,10 +620,10 @@ export default {
       position: absolute;
       right: 0px;
       top: 3px;
-      color: #cecbcb;
+      color: #ffffff;
     }
     [class^="el-icon-"]:hover {
-      color: #ffffff;
+      color: #fce5e5;
     }
   }
 }

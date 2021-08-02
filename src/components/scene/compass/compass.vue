@@ -4,13 +4,13 @@
       <span id="compass"
        style="transform : rotate(-45deg);display : inline-block;" class="iconfont iconzhibeizhen" ref="compass_dom"></span>
     </div>
-    <div class="btn_box" @click="reset" :title="Resource.home">
+    <div class="btn_box" @click="reset" :title="Resource.reset" >
       <span class="iconfont iconzhongzhi"></span>
     </div>
-    <div class="btn_box" @mousedown="zoomIn" @mouseup="mouseup_zoomIn" title="放大">
+    <div class="btn_box" @mousedown="zoomIn" @mouseup="mouseup_zoomIn" :title="Resource.zoomIn">
       <span class="iconfont iconfangda"></span>
     </div>
-    <div class="btn_box" @mousedown="zoomOut" @mouseup="mouseup_zoomOut" title="缩小">
+    <div class="btn_box" @mousedown="zoomOut" @mouseup="mouseup_zoomOut" :title="Resource.zoomOut">
       <span class="iconfont iconsuoxiao"></span>
     </div>
     <div class="btn_box" @click="fullscreenchange" :title="Resource.fullScreen">

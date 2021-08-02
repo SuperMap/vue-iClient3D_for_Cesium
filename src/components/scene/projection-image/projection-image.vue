@@ -107,35 +107,11 @@ import projection from "./projection-image.js";
 export default {
   name: "Sm3dProjectionImage",
   props: {
-    // 选中符号类型id
-    selectedTypeId: {
-      type: Number
-    },
-    // 颜色
-    lightColor: {
-      type: String
-    },
-    // 扩散距离
-    cutoffDistance: {
-      type: Number
-    },
-    // 衰减因子
-    lightDecay: {
-      type: Number
-    },
-    // 光源强度
-    lightIntensity: {
-      type: Number
-    },
-    // 聚光范围
-    spotLightAngle: {
+    // 视频路径
+    fileText: {
       type: Number
     },
     //通过文件同时添加多个视频进行投放。
-    // fromInfo{
-    // infoUrl:xx,
-    // baseUrl:xx,
-    // }
     fromInfo: {
       type: Object
     }

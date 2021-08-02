@@ -1,11 +1,44 @@
 <template>
-  <div id="profile" class="sm-panel" v-drag>
+  <div id="sight-line" class="sm-panel" v-drag>
     <div class="sm-function-module-sub-section" v-stopdrag style="margin:0">
-      <!-- <div class="sm-half-L">
-        <input checked type="checkbox" v-model="highlightBarrier"/>
-        <label style="width:80%">{{ Resource.highlightBarrier }}</label>
-      </div>-->
-      <div class="boxchild flex-between">
+      <div class="sm-half-L">
+        <label style="width: 35%;">{{Resource.lineWidth}}</label>
+        <el-slider
+          v-model="lineWidth"
+          :min="1"
+          :step="1"
+          :max="10"
+          input-size="mini"
+          :debounce="500"
+          tooltip-class="tooltip-class"
+          style="width:63%"
+        ></el-slider>
+      </div>
+
+      <div class="sm-half-L">
+        <label style="width: 35%;">{{Resource.visibleColor}}</label>
+        <el-color-picker v-model="visibleColor" size="mini" show-alpha style="width:63%"></el-color-picker>
+      </div>
+      <div class="sm-half-L">
+        <label style="width: 35%;">{{Resource.hiddenColor}}</label>
+        <el-color-picker v-model="hiddenColor" size="mini" show-alpha style="width:63%"></el-color-picker>
+      </div>
+      <div class="sm-half-L">
+        <label style="width: 35%;">{{Resource.barrierColor}}</label>
+        <el-color-picker v-model="barrierColor" size="mini" show-alpha style="width:63%"></el-color-picker>
+      </div>
+
+      <div class="sm-half-L">
+        <label style="width:auto">
+          <input type="checkbox" v-model="showBarrierPoints" />
+          {{Resource.showBarrierPoints}}
+        </label>
+        <label style="width:auto">
+          <input type="checkbox" v-model="highlightBarrier" />
+          {{Resource.highlightBarrier}}
+        </label>
+      </div>
+      <div class="boxchild ">
         <button type="button" class="tbtn" v-on:click="analysis">{{ Resource.analyze }}</button>
         <button type="button" class="tbtn tbtn-margin-left" @click="clear">{{ Resource.clear }}</button>
       </div>
@@ -31,7 +64,7 @@ export default {
       type: String
     },
     //高亮障碍物颜色
-    highlightBarrierColor: {
+    barrierColor: {
       type: String
     },
     //是否显示高亮障碍物
@@ -41,12 +74,30 @@ export default {
     //通视线宽
     lineWidth: {
       type: Number
+    },
+    showBarrierPoints: {
+      type: Boolean,
+      default: true
     }
   },
   setup(props) {
-    let { highlightBarrier, analysis, clear } = sightLine(props);
-    return {
+    let {
+      lineWidth,
+      visibleColor,
+      hiddenColor,
+      barrierColor,
       highlightBarrier,
+      showBarrierPoints,
+      analysis,
+      clear
+    } = sightLine(props);
+    return {
+      lineWidth,
+      visibleColor,
+      hiddenColor,
+      barrierColor,
+      highlightBarrier,
+      showBarrierPoints,
       analysis,
       clear
     };

@@ -105,7 +105,7 @@
             @click="changeSelect(polygon.id)"
           >
             <span class="iconfont" :class="polygon.iconfont"></span>
-            <label style="width:100%">{{polygon.lineName}}</label>
+            <label style="width:100%">{{polygon.faceName}}</label>
           </div>
         </div>
         <!-- 纯色 -->

@@ -8,7 +8,7 @@ export default [
             {
                 type: "REALSPACE",
                 thumbnail: "public/img/webServeImg/CBD.png",
-                proxiedUrl: 'http://www.supermapol.com/realspace/services/3D-CBD/rest/realspace',
+                proxiedUrl: 'https://www.supermapol.com/realspace/services/3D-CBD/rest/realspace',
                 name: "CBD",
                 layers: [{ type: 'S3M', layerName: 'Building@CBD' }, { type: 'S3M', layerName: 'Tree@CBD' }, { type: 'S3M', layerName: 'Xiaopin@CBD' },{ type: 'S3M', layerName: 'Lake@CBD' }, { type: 'S3M', layerName: 'Ground@CBD' }, { type: 'S3M', layerName: 'Ground2@CBD' }, { type: 'S3M', layerName: 'Bridge@CBD' }],
                 state: 0
@@ -16,7 +16,7 @@ export default [
             {
                 type: "REALSPACE",
                 thumbnail: "public/img/webServeImg/铁岭.png",
-                proxiedUrl: "http://www.supermapol.com/realspace/services/3D-QingXieSheYingMoXing/rest/realspace",
+                proxiedUrl: "https://www.supermapol.com/realspace/services/3D-QingXieSheYingMoXing/rest/realspace",
                 name: "倾斜摄影模型",
                 layers: [{ type: 'S3M', layerName: 'qingxie' }],
                 state: 0
@@ -24,7 +24,7 @@ export default [
             {
                 type: "REALSPACE",
                 thumbnail: "public/img/webServeImg/白模.png",
-                proxiedUrl: 'http://www.supermapol.com/realspace/services/3D-CQmodel_wireframe_2000/rest/realspace',
+                proxiedUrl: 'https://www.supermapol.com/realspace/services/3D-CQmodel_wireframe_2000/rest/realspace',
                 name: "白模",
                 layers: [{ type: 'S3M', layerName: 'CQmodel' }],
                 style: { fillStyle: 'Fill_And_WireFrame' },  
@@ -33,7 +33,7 @@ export default [
             {
                 type: "REALSPACE",
                 thumbnail: "public/img/webServeImg/BIM.png",
-                proxiedUrl: "http://www.supermapol.com/realspace/services/3D-wireFrame/rest/realspace",
+                proxiedUrl: "https://www.supermapol.com/realspace/services/3D-wireFrame/rest/realspace",
                 name: "BIM建筑",
                 layers: [{ type: 'S3M', layerName: "wireFrame" }],
                 state: 0
@@ -65,7 +65,7 @@ export default [
             {
                 type: "MVT",
                 thumbnail: "public/img/webServeImg/MVT.jpg",
-                proxiedUrl: "http://www.supermapol.com/realspace/services/map-mvt-JingJinDiQuDiTu/restjsr/v1/vectortile/maps/%E4%BA%AC%E6%B4%A5%E5%9C%B0%E5%8C%BA%E5%9C%B0%E5%9B%BE",
+                proxiedUrl: "https://www.supermapol.com/realspace/services/map-mvt-JingJinDiQuDiTu/restjsr/v1/vectortile/maps/%E4%BA%AC%E6%B4%A5%E5%9C%B0%E5%8C%BA%E5%9C%B0%E5%9B%BE",
                 name: "京津地区MVT",
                 layers: [{ type: 'MVT', layerName: '京津地区MVT' }],
                 state: 0

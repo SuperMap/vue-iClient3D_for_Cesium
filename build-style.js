@@ -18,7 +18,7 @@ const renameCss = require("gulp-rename");
 //         .pipe(gulp.dest("lib/theme")) //压缩后的css存放位置
       
 // });
-// 拷贝字体文件
+// // 拷贝字体文件
 // gulp.task('font', function () {
 //     return   gulp.src('./src/style/font/*.*')
 //         .pipe(gulp.dest('lib/theme/font'));

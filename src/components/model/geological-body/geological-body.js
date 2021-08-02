@@ -19,7 +19,7 @@ function scanEffect(props) {
         drillRadius: 400,
         drillHeight: 2000,
         clipType: 'drawClip',
-        drawClipTMode: 'KeepInside',
+        drawClipMode: 'KeepInside',
     });
     state.modelUrls = [
         {
@@ -305,7 +305,7 @@ function scanEffect(props) {
     //裁剪
     function startClip() {
         clearClip();
-        solidModelsProfile.clippingType = Cesium.ClippingType[state.drawClipTMode];
+        solidModelsProfile.clippingType = Cesium.ClippingType[state.drawClipMode];
         if (state.clipType === 'drawClip') {
             drawPolygon()
             return;
@@ -403,7 +403,7 @@ function scanEffect(props) {
     watch(() => state.operationType, val => {
         clearAll();
     });
-    watch(() => state.drawClipTMode, val => {
+    watch(() => state.drawClipMode, val => {
         solidModelsProfile.clippingType = Cesium.ClippingType[val];
     });
     watch(() => state.clipType, val => {

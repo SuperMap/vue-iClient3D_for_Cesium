@@ -102,7 +102,7 @@ function clipPolygonAnalysis(props) {
         for (let layer of layers) {
             layer.setModifyRegions([p], clipMode);
         }
-    };;
+    };
 
     // 清除
     function clearClipPolygon(e) {

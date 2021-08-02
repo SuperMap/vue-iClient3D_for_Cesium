@@ -182,7 +182,7 @@
 <script>
 import shadowquery from "./shadow-query.js";
 export default {
-  name: "Sm3dShadowquery",
+  name: "Sm3dShadowQuery",
   props: {
     //开始结束时间
     timeValue: {

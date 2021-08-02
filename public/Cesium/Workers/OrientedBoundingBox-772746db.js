@@ -20,7 +20,7 @@
  * Portions licensed separately.
  * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
-define(['exports', './when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographic-f2a06374', './Cartesian2-16a61632', './BoundingSphere-356f49c6', './Plane-29aa8f4d', './EllipsoidTangentPlane-be4d0295'], function (exports, when, Check, _Math, Cartographic, Cartesian2, BoundingSphere, Plane, EllipsoidTangentPlane) { 'use strict';
+define(['exports', './when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographic-f2a06374', './Cartesian2-16a61632', './BoundingSphere-d018a565', './Plane-aa6c3ce5', './EllipsoidTangentPlane-33ed15f1'], function (exports, when, Check, _Math, Cartographic, Cartesian2, BoundingSphere, Plane, EllipsoidTangentPlane) { 'use strict';
 
     /**
          * Creates an instance of an OrientedBoundingBox.

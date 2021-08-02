@@ -20,7 +20,7 @@
  * Portions licensed separately.
  * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
-define(['exports', './when-8d13db60', './Check-70bec281', './Cartesian2-16a61632', './BoundingSphere-356f49c6', './ComponentDatatype-5862616f', './GeometryAttribute-1e248a71', './GeometryAttributes-aacecde6', './GeometryPipeline-963ea670', './IndexDatatype-9435b55f', './WebMercatorProjection-9a70654e'], function (exports, when, Check, Cartesian2, BoundingSphere, ComponentDatatype, GeometryAttribute, GeometryAttributes, GeometryPipeline, IndexDatatype, WebMercatorProjection) { 'use strict';
+define(['exports', './when-8d13db60', './Check-70bec281', './Cartesian2-16a61632', './BoundingSphere-d018a565', './ComponentDatatype-5862616f', './GeometryAttribute-1e248a71', './GeometryAttributes-aacecde6', './GeometryPipeline-30473267', './IndexDatatype-9435b55f', './WebMercatorProjection-9a70654e'], function (exports, when, Check, Cartesian2, BoundingSphere, ComponentDatatype, GeometryAttribute, GeometryAttributes, GeometryPipeline, IndexDatatype, WebMercatorProjection) { 'use strict';
 
     /**
          * Value and type information for per-instance geometry attribute that determines the geometry instance offset

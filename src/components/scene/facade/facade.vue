@@ -18,7 +18,7 @@
       <div class="sm-half-L">
         <label style="width: 35%;">{{Resource.facadeHeight}}</label>
         <el-slider
-          v-model="maxDHeight "
+          v-model="maxHeight "
           :min="1"
           :max="200"
           :step="1"
@@ -31,7 +31,8 @@
       </div>
       <div class="sm-half-L">
         <label style="width:100%">
-          <input type="checkbox" v-model="setLodrange" />{{Resource.setLodrange}}
+          <input type="checkbox" v-model="setLodrange" />
+          {{Resource.setLodrange}}
         </label>
         <div class="sm-half-L" v-show="setLodrange">
           <label style="width:35%">{{Resource.selectedLayer}}</label>
@@ -55,9 +56,19 @@
         </div>
       </div>
       <div class="boxchild flex-between">
-        <button class="tbtn" type="button" style="width:auto" v-on:click="setRegion">{{Resource.setRegion}}</button>
-        <button class="tbtn " type="button" style="width:auto" v-on:click="execute">{{Resource.execute}}</button>
-        <button @click="clear" class="tbtn " type="button">{{ Resource.clear}}</button>
+        <button
+          class="tbtn"
+          type="button"
+          style="width:auto"
+          v-on:click="setRegion"
+        >{{Resource.setRegion}}</button>
+        <button
+          class="tbtn"
+          type="button"
+          style="width:auto"
+          v-on:click="execute"
+        >{{Resource.execute}}</button>
+        <button @click="clear" class="tbtn" type="button">{{ Resource.clear}}</button>
       </div>
     </div>
   </div>
@@ -73,22 +84,21 @@ export default {
       type: Number
     },
     //最大高度
-    maxDHeight: {
+    maxHeight: {
       type: Number
     },
     //设置模型精细度
-    setLodrange:{
-         type: Boolean
+    setLodrange: {
+      type: Boolean
     },
     //设置图层的lOD层级切换距离缩放系数
     lodrange: {
       type: Number
     },
-      //默认选择图层名称
+    //默认选择图层名称
     selectedLayerName: {
       type: String
-    },
- 
+    }
   },
   methods: {
     // 滑块提示函数
@@ -99,9 +109,9 @@ export default {
   setup(props) {
     let {
       maxDistance,
-      maxDHeight,
-       layerNames,
-       setLodrange,
+      maxHeight,
+      layerNames,
+      setLodrange,
       selectedLayerName,
       lodrange,
       setRegion,
@@ -110,9 +120,9 @@ export default {
     } = facade(props);
     return {
       maxDistance,
-      maxDHeight,
+      maxHeight,
       setLodrange,
-       layerNames,
+      layerNames,
       selectedLayerName,
       lodrange,
       setRegion,

@@ -37,17 +37,17 @@ export default {
         {
             id:'1' ,
             iconfont:'iconchunse',
-            lineName:'纯色'
+            faceName:'纯色'
          },
          {
              id:'2' ,
              iconfont:'iconwangge',
-             lineName:'网格'
+             faceName:'网格'
           },
           {
              id:'3' ,
              iconfont:'icontiaowen',
-             lineName:'条纹'
+             faceName:'条纹'
           },
     ],
 }

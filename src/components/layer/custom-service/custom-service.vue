@@ -131,6 +131,7 @@ export default {
         tool.Message.warnMsg("请检查添加类型是否正常？");
         return;
       };
+      getLayerName(state.layerName);
       switch (state.layersType) {
         case "SCENE":
           if (check()) {
@@ -150,23 +151,22 @@ export default {
         case "IMG":
           if (check()) {
            let layer = layerManagement.addImageLayer(state.layerURL);
-            addCallback(layer);
+            addCallback(layer, "IMG");
           }
           break;
         case "TERRAIN":
           if (check()) {
             layerManagement.addTerrainLayer(state.layerURL, state.isSct);
-            addCallback(viewer.terrainProvider);
+            addCallback(viewer.terrainProvider, "TERRAIN");
           }
           break;
            case "MVT":
           if (check()) {
             let mvtlayer = layerManagement.addMvtLayer(state.layerURL, state.layerName);
-            addCallback(mvtlayer);
+            addCallback(mvtlayer, "MVT");
           }
           break;
       }
-      getLayerName(state.layerName);
       clearState();
     }
 

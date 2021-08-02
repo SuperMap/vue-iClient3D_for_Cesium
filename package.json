@@ -1,6 +1,6 @@
 {
   "name": "@supermap/iclient3d-vue-for-webgl",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Supermap iClient3D WebGL for Vue.js",
   "homepage": "https://www.supermapol.com/earth/vue-iEarth/examples/index.html",
   "main": "lib/index.min.js",
@@ -34,6 +34,7 @@
     "build:style": "gulp --gulpfile build-style.js"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "element-plus": "^1.0.2-beta.36",
     "vue": "^3.0.4"
   },

@@ -220,7 +220,7 @@ function projectionImage(props) {
     function clipProjectImg() {
         isClip = true;
         tooltip.setVisible(false);
-        window.tooltip.showAt(' <p>点击鼠标左键绘制裁剪区域</p><p>点击鼠标右键结束绘制</p>', '400px');
+        window.tooltip.showAt(' <p>点击鼠标左键绘制裁剪区域</p><p>点击鼠标右键结束绘制</p><p>注：只能裁剪当前选中投放对象</p>', '400px');
         if (!window.handlerPolygon) {
             initHandler("Polygon");
         }
@@ -256,7 +256,9 @@ function projectionImage(props) {
             s3mInstanceColc.removeInstance(modelUrl, currentSelectedSymbol.id);
             currentSelectedSymbol = null;
         }
-        if (currentProject) currentProject.destroy();
+        if (currentProject) {
+            currentProject.removeAllClipRegion()
+            currentProject.destroy();}
         if (modelIdProjectPairs.size === 0)
             viewer.eventManager.removeEventListener("CLICK", click_set_target);
         if (modelEditor) modelEditor.destroy();
@@ -314,11 +316,11 @@ function projectionImage(props) {
         if (!currentProject || val == "") return;
         currentProject.viewPosition[0] = val;
     })
-    watch(() => state.viewlongitude, val => {
+    watch(() => state.viewlatitude, val => {
         if (!currentProject || val == "") return;
         currentProject.viewPosition[1] = val;
     })
-    watch(() => state.viewlongitude, val => {
+    watch(() => state.viewheight, val => {
         if (!currentProject || val == "") return;
         currentProject.viewPosition[2] = val;
     })

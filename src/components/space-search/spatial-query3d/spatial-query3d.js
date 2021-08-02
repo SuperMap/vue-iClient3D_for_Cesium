@@ -14,11 +14,12 @@ function spatialQuery3d(props) {
     let state = reactive({
         layerNames: [],   //当前存在的可选择图层
         selectedLayerName: null,  //默认选择图层名称
+        scale: 3,   //缩放
+        positionMode: "intersects",   //位置模式
+
         Xpitch: 0,   //x旋转
         Yroll: 0,     //y旋转
         Zheading: 0,     //z旋转
-        scale: 3,   //缩放
-        positionMode: "intersects",   //位置模式
         geometryType: "box",   //选择模型类型
         drawType: "Fill_And_WireFrame",   //模型显示类型
         FillColor: "rgba(192,211,25,0.5)",   //模型填充颜色
@@ -49,6 +50,10 @@ function spatialQuery3d(props) {
     let scene, tipFlag = true;
     let layers, spatialQuery;
     let geometry, GeometryBodys = [];
+
+    let editEntity, s3mInstanceColc;
+    let modelUrl = 'public/data/s3m/box.s3m';
+    let modelEditor;
 
     if (storeState.isViewer) {
         if (!window.tooltip) {
@@ -114,15 +119,14 @@ function spatialQuery3d(props) {
         getGeometry(state.geometryType);
         getPositionMode(state.positionMode);
         spatialQuery.build();
-        if (storeState.changeLayers) {
-            getLayerNames();
-        }
         setTimeout(() => {
             if (state.layerNames.length === 0) {
                 getLayerNames();
             }
         }, 1000);
-
+        
+        s3mInstanceColc = new Cesium.S3MInstanceCollection(scene._context);
+        viewer.scene.primitives.add(s3mInstanceColc);
     };
 
     function getLayerNames() {
@@ -189,6 +193,8 @@ function spatialQuery3d(props) {
         let cartesian = scene.pickPosition(e.message.position);
         let position = tool.CartesiantoDegrees(cartesian) // 将获取的点的位置转化成经纬度
         setPosition(position);
+        // let h = position[2] + 60;
+        // addModel(Cesium.Cartesian3.fromDegrees(position[0], position[1], h)); //添加编辑模型
         tooltip.setVisible(false);
         viewer.eventManager.removeEventListener("CLICK", LEFT_CLICK); //移除鼠标点击事件监听
     }
@@ -287,6 +293,43 @@ function spatialQuery3d(props) {
             );
         }
     };
+
+    function addModel(centerPositions) {
+        s3mInstanceColc.add(modelUrl, {
+            id: 'spatialQuery-model',
+            position: centerPositions,
+            // hpr: new Cesium.HeadingPitchRoll(heading, 0, 0),
+            // color:Cesium.Color.RED,
+            scale: new Cesium.Cartesian3(0.1, 0.1, 0.1),
+        });
+        editEntity = s3mInstanceColc.getInstance(modelUrl, 'spatialQuery-model');
+        if (!modelEditor) addModelEditor(editEntity);
+        else {
+            modelEditor.setEditObject(editEntity);
+            modelEditor.activate();
+        }
+    }
+
+    function addModelEditor(model) {
+        modelEditor = new Cesium.ModelEditor({
+            model: model,
+            scene: viewer.scene,
+            axesShow: {
+                "translation": true,
+                "rotation": true,
+                "scale": false
+            }
+        });
+        modelEditor.activate();
+        modelEditor.changedEvt.addEventListener((param) => {
+            console.log(param)
+            let Cartesian3 = new Cesium.Cartesian3();
+            Cesium.Matrix4.getTranslation(param.modelMatrix, Cartesian3);
+            if (Cartesian3) {
+            
+            }
+        })
+    }
 
     // 清除
     function clear() {

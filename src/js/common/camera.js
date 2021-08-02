@@ -13,7 +13,7 @@ const flyByCameraParam = function (cameraParam) {
                 pitch: cameraParam.pitch,
                 roll: cameraParam.roll,
             },
-            duration: 5,
+            duration: 0,
         });
         return;
     }
@@ -31,7 +31,7 @@ const flyByLayerName = function (type, id_name) {
     switch (type) {
         case "S3M":
             let layer = viewer.scene.layers.find(id_name);
-            viewer.flyTo(layer)
+            viewer.flyTo(layer,{duration: 0,})
             break;
         case "MVT":
             let mvtlayer = viewer.scene.getVectorTilesMap(id_name);
@@ -42,6 +42,7 @@ const flyByLayerName = function (type, id_name) {
                     (bounds.north + bounds.south) * 0.5,
                     10000
                 ),
+                duration: 0,
                 orientation: {
                     heading: 0,
                     roll: 0
@@ -61,7 +62,7 @@ const flyByLayerName = function (type, id_name) {
                 };
             }
             if (img_layer) {
-                viewer.flyTo(img_layer)
+                viewer.flyTo(img_layer,{duration: 0,})
             }
             break;
         case "TERRAIN":

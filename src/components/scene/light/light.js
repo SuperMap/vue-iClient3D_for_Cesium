@@ -17,9 +17,7 @@ function addPointSymbol(props) {
         lightDecay: 5,
         lightIntensity: 5,
         spotLightAngle: 30,
-        showLight: true,
         visibleModel: true,
-
         dockFontShow: true, //停靠图标显示
         modelPosition: [0, 0, 0],
         modelLongitude: '',

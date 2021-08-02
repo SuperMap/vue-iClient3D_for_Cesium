@@ -51,7 +51,8 @@ class ParticleSystem {
                     emitterModelMatrix: this.computeEmitterModelMatrix(undefined, undefined, position),
                     updateCallback: applyGravity,
                     sizeInMeters: true,
-                    modelMatrix: this.computeModelMatrix(position)
+                    modelMatrix: this.computeModelMatrix(position),
+                    performance:false
                 }))
             return this.particleSystem;
         }
@@ -177,7 +178,8 @@ class ParticleSystem {
             lifetime: 12,
             updateCallback: applyGravity,
             modelMatrix: this.computeModelMatrix(centerPosition),
-            emitterModelMatrix: emitterModelMatrix
+            emitterModelMatrix: emitterModelMatrix,
+            performance:false
         }));
         this.fireWokes.push(fireWoke);
     }

@@ -10,7 +10,7 @@ export default [
                 name: "量算"
             },
             {
-                component: "Sm3dShadowquery",
+                component: "Sm3dShadowQuery",
                 imgSrc: "public/img/componentsImg/shadowQuery.png", 
                 name: "阴影分析"
             },
@@ -94,11 +94,11 @@ export default [
                 imgSrc: "public/img/componentsImg/clip.png",
                 name: "平面裁剪"
             },
-            // {
-            //     component: "Sm3dClipCross",
-            //     imgSrc: "public/img/componentsImg/clipCross.png",
-            //     name: "cross裁剪"
-            // },
+            {
+                component: "Sm3dClipCross",
+                imgSrc: "public/img/componentsImg/clipCross.png",
+                name: "cross裁剪"
+            },
             {
                 component: "Sm3dClipPolygon",
                 imgSrc: "public/img/componentsImg/clipPolygon.png",
@@ -145,6 +145,11 @@ export default [
                 component: "Sm3dMvtlayerStyle",
                 imgSrc: "public/img/componentsImg/mvt.png",
                 name: "MVT矢量瓦片"
+            },
+            {
+                component: "Sm3dAddPbr",
+                imgSrc: "public/img/componentsImg/pbr.png",
+                name: "PBR"
             }
         ]
     },

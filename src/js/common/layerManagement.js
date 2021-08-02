@@ -13,7 +13,7 @@ function addS3mLayers(scps, callback) {  //scps:[{ url, options:{name}]}  无返
                 );
             });
         }
-        promiseWhen(promiseArray, callback)
+        promiseWhen(promiseArray, callback, 'S3M')
     } catch (e) {
         let widget = viewer.cesiumWidget;
         if (widget._showRenderLoopErrors) {
@@ -36,7 +36,7 @@ function addScene(url, options, callback) {  //无返回值options:{SceneToken,a
     if (checkURL(url)) {
         try {
             let s = [viewer.scene.open(url, undefined, { 'autoSetView': flag })];
-            promiseWhen(s, callback);
+            promiseWhen(s, callback, 'SCENE');
         } catch (e) {
             let widget = viewer.cesiumWidget;
             if (widget._showRenderLoopErrors) {
@@ -99,6 +99,7 @@ function addMvtLayer(LayerURL, name, callback) {    // 返回img图层layer
                     (bounds.north + bounds.south) * 0.5,
                     10000
                 ),
+                duration:0,
                 orientation: {
                     heading: 0,
                     roll: 0
@@ -118,17 +119,14 @@ function addMvtLayer(LayerURL, name, callback) {    // 返回img图层layer
 
 };
 
-
-
-
 // 加载s3m和场景函数
-function promiseWhen(promiseArray, callback) {
+function promiseWhen(promiseArray, callback, type) {
     Cesium.when.all(
         promiseArray,
         function (layers) {
             storeDate.layers = viewer.scene.layers.layerQueue;
             actions.setChangeLayers();
-            callback(layers[0]);
+            callback(layers[0],type);
             storeDate.layers.forEach((s3mlayer) => {
                 if (!s3mlayer.visibleDistanceMax || s3mlayer.visibleDistanceMax > 12000) {
                     s3mlayer.visibleDistanceMax = 12000   //设置模型最可见距离

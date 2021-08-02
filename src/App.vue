@@ -1,5 +1,6 @@
 <template>
-  <sm3d-viewer :scene-url="sceneURL">
+  <!-- :scene-url="sceneURL" -->
+  <sm3d-viewer :scene-url="sceneURL"> 
     <div id="viewer-panel" class="sm-panel" style="left:1%;">
       <label style="font-size:16px">组件调用测试</label>
       <br />
@@ -24,6 +25,7 @@
       <button @click="change(6)">cross裁剪</button>
       <button @click="change(7)">平面裁剪</button>
       <button @click="change(8)">多边形</button>
+      <button @click="change(4)">box</button>
       <br />
 
       <label for>分析</label>
@@ -57,40 +59,54 @@
       <button @click="change(33)">视频投放</button>
       <button @click="change(34)">扫描线</button>
       <button @click="change(35)">体渲染</button>
+      <button @click="openChild">子组件</button>
       ...
-    </div>
+    </div> 
 
-    <!-- <keep-alive :include="keepArr"> -->
     <keep-alive>
       <component :is="view" data-url="public/data/netcdf/result_100_200_9_40.nc"></component>
     </keep-alive>
   </sm3d-viewer>
+
 </template>
 
 <script>
+// import Modal from "./components/tool/popup.vue";
+import {  flyByCameraParam, flyByLayerName} from "./js/common/camera.js";
+import {  addScene} from "./js/common/layerManagement.js";
 export default {
   data() {
     return {
+      show: false,
+      saaa: true,
       keepArr: ["Sm3dTerrainSlope"],
-      view: "Sm3dParticleSystem",
+      view: "Sm3dAddPbr",
       sceneArr: [],
       sceneURL:
         // "http://www.supermapol.com/realspace/services/3D-ZF_normal/rest/realspace"
-        // URL_CONFIG.SCENE_WIREFRAME
+        URL_CONFIG.SCENE_WIREFRAME
         // 'http://www.supermapol.com/realspace/services/3D-BIMbuilding/rest/realspace'
-        URL_CONFIG.SCENE_CBD
-      // "http://www.supermapol.com/realspace/services/3D-JuBuShuJu_Model_GuangZhouJuBuMian-BaiMo1/rest/realspace"
-      // 'http://www.supermapol.com/realspace/services/3D-CQmodel_wireframe_2000/rest/realspace',
-      // 'http://www.supermapol.com/realspace/services/3D-CQmodel_wireframe_2000/rest/realspace'
-      // "http://www.supermapol.com/realspace/services/3D-QingXieSheYingMoXing/rest/realspace"
-      // 'http://www.supermapol.com/realspace/services/3D-CBDCache20200416/rest/realspace',
-      // "http://localhost:8090/iserver/services/3D-NanWang/rest/realspace"
+        // URL_CONFIG.SCENE_CBD
+        // "http://www.supermapol.com/realspace/services/3D-JuBuShuJu_Model_GuangZhouJuBuMian-BaiMo1/rest/realspace"
+        // 'http://www.supermapol.com/realspace/services/3D-CQmodel_wireframe_2000/rest/realspace',
+        // 'http://www.supermapol.com/realspace/services/3D-CQmodel_wireframe_2000/rest/realspace'
+        // "http://www.supermapol.com/realspace/services/3D-QingXieSheYingMoXing/rest/realspace"
+        // 'http://www.supermapol.com/realspace/services/3D-CBDCache20200416/rest/realspace',
+        // "http://www.supermapol.com/realspace/services/3D-tishuju/rest/realspace"
 
       // 'http://www.supermapol.com/realspace/services/3D-CBD/rest/realspace/datas/Building@CBD/config'
     };
   },
-
-  mounted() {},
+  // components: {
+  //   Modal
+  // },
+  mounted() {
+      viewer.imageryLayers.addImageryProvider(new Cesium.BingMapsImageryProvider({
+              url: 'https://dev.virtualearth.net',
+              mapStyle: Cesium.BingMapsStyle.AERIAL,
+              key: 'Aq0D7MCY5ErORA9vrwFtfE9aancUq5J6uNjw0GieF0ostaIrVuJZ8ScXxNHHvEwS'
+          }));
+  },
   methods: {
     change(val) {
       switch (val) {
@@ -199,9 +215,6 @@ export default {
         case 34:
           this.view = "Sm3dScanEffect";
           break;
-        case 35:
-          this.view = "Sm3dVolumeRender";
-          break;
       }
     },
     changeScene(val) {
@@ -234,6 +247,15 @@ export default {
           }
           break;
       }
+    },
+
+    // 关闭弹窗
+    hideModal() {
+      this.show = false;
+    },
+    // 显示弹窗
+    submit() {
+      this.show = true;
     }
   }
 };
@@ -279,5 +301,19 @@ button {
   box-sizing: border-box;
   margin: 0;
   padding: 0 5px;
+}
+
+#aaa {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  right: 0;
+  top: 10px;
+  z-index: 999999;
+  overflow: hidden;
+  #cesiumContainer2 {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

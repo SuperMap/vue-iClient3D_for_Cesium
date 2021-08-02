@@ -9,15 +9,16 @@ import initDrag from "../js/drag/drag.js"                //按需引入拖拽指
 import ResourceCN from '../resource/resourceCN.js'  //中文语言文件
 
 // 引入组件
-import viewer from './viewer/viewer.vue'       //viewer组件
-import terrainOperation from "./terrain-analysis/terrain-operation/terrain-operation.vue"   //地形操作
-import terrainSlope from "./terrain-analysis/terrain-slope/terrain-slope.vue"
-import terrainIsoline from "./terrain-analysis/terrain-isoline/terrain-isoline.vue"
-import terrainFlood from "./terrain-analysis/terrain-flood/terrain-flood.vue"
-import clipBoxEditor from "./clip/clip-box-editor/clip-box-editor.vue"   //裁剪操作
-import clipPolygon from "./clip/clip-polygon/clip-polygon.vue"
-import clipPlane from "./clip/clip-plane/clip-plane.vue"
-import clipCross from "./clip/clip-cross/clip-cross.vue"
+import viewer from './viewer/index.js'       //viewer组件
+import terrainOperation from "./terrain-analysis/terrain-operation/index.js"   //地形操作
+import terrainSlope from "./terrain-analysis/terrain-slope/index.js"
+import terrainIsoline from "./terrain-analysis/terrain-isoline/index.js"
+import terrainFlood from "./terrain-analysis/terrain-flood/index.js"
+import clipBoxEditor from "./clip/clip-box-editor/index.js"   //裁剪操作
+import clipPolygon from "./clip/clip-polygon/index.js"
+// import clipPlane from "./clip/clip-plane/index.js"
+import clipCross from "./clip/clip-cross/index.js"
+import clipPlaneNew from "./clip/clip-plane-new/index.js"
 import measure from "./analysis_3d/measure/index.js"
 import skyLine from "./analysis_3d/sky-line/index.js"
 import shadowquery from "./analysis_3d/shadow-query/index.js"
@@ -28,7 +29,6 @@ import openness from "./analysis_3d/openness/index.js"
 import spatialQuery3d from "./space-search/spatial-query3d/index.js"
 import splitScreen from "./scene/split-screen/index.js"
 import roller from "./scene/roller/index.js"
-
 
 import customService from "./layer/custom-service/index.js"
 import layerManage from "./layer/layer-manage/index.js"
@@ -43,6 +43,7 @@ import sceneAttribute from "./scene/scene-attribute/index.js"
 import facade from "./scene/facade/index.js"
 import compass from "./scene/compass/index.js"
 import flyRoute from "./fly/fly-route/index.js"
+import addPbr from "./layer/pbr-material/index.js"
 
 import draw from "./draw/draw-line-surface/index.js"
 import symbol from "./draw/add-point-symbol/index.js"
@@ -62,7 +63,7 @@ const components = [
     terrainFlood,
     clipBoxEditor,
     clipPolygon,
-    clipPlane,
+    clipPlaneNew,
     clipCross,
     measure,
     skyLine,
@@ -80,6 +81,7 @@ const components = [
     s3mlayerAttribute,
     s3mlayerStyle,
     s3mlayerOperation,
+    addPbr,
     modelFlood,
     photography,
     imglayerAttribute,
@@ -94,7 +96,7 @@ const components = [
     scanEffect,
     geologicalBody,
     volume,
-    particle
+    particle,
 ];
 
 const install = (app, locale) => {
@@ -105,7 +107,8 @@ const install = (app, locale) => {
     if (install.installed) return;
     install.installed = true;
     components.forEach(component => {
-        app.component(component.name, component);
+        // app.component(component.name, component);
+        app.use(component);
     });
 };
 

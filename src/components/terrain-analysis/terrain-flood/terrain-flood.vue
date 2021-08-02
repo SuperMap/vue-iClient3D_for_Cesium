@@ -96,31 +96,19 @@ export default {
   },
   setup(props) {
     let {
-      maxHeight,
-      minHeight,
       floodHeight,
       currentHeight,
-      floodTrans,
-      cheackedBand,
-      colorBandShow,
       floodSpeed,
       floodBegin,
       floodClear,
-      changeColor
     } = terrainFlood(props);
 
     return {
-      maxHeight,
-      minHeight,
       floodHeight,
       currentHeight,
-      floodTrans,
-      cheackedBand,
-      colorBandShow,
       floodSpeed,
       floodBegin,
       floodClear,
-      changeColor
     };
   }
 };

@@ -26,7 +26,6 @@ function viewshed(props) {
         invisibleBodyColor: "rgba(238,114,22,0.7)",  //不可视域体颜色
         visibleBody: false,   //显示可视域体
         invisibleBody: false,   //显示不可视域体
-
         viewshedAnimation: false,  //动画演示
         DynamicLine: [],    //路线点
         DynamicSpeed: 10,   //动态分析行进速度
@@ -107,7 +106,7 @@ function viewshed(props) {
             handlerPolyline()
         } else {
             if (tipFlag) {   //只提示一次
-                window.tooltip.showAt(' <p>点击鼠标左键确认观察者位置</p> <p>右键单击结束分析</p>', '300px');
+                window.tooltip.showAt(' <p>点击鼠标左键确认观察者位置</p> <p>右键单击结束分析</p>', '450px');
                 tipFlag = false
             }
             LEFT_CLICK();
@@ -515,7 +514,7 @@ function viewshed(props) {
         if (val === '' || val < 0) {    // 避免删除导致崩溃
             val = 0
         }
-        viewshed3D.verticalFov = parseFloat(newValue);
+        viewshed3D.verticalFov = parseFloat(val);
     });
     watch(() => state.horizontalFov, val => {
         if (val === '' || val < 0) {    // 避免删除导致崩溃

@@ -18,7 +18,7 @@
     width: 200px;
   }
   #clip-plane-panel{
-    width: 150px;
+    width: 240px;
   }
   #clip-polygon-panel{
     width: 200px;
@@ -39,8 +39,7 @@
   }
 
   #skyLine-panel {
-    @include  cal-width(208px);
-    min-width: 155px;
+    width: 256px;
   }
   #echarts_box {
     position: absolute !important;
@@ -62,14 +61,20 @@
     @include cal-width(53px);
   }
   #viewshed{
-    width: 150px;
+    width: 280px;
   }
   #profile{
     width: 150px;
   }
-
+  #sight-line{
+    width: 256px;
+  }
+  #pbr-panel{
+    width: 223px;
+  }
+  
   #openness-panel{
-    width: 230px;
+    width: 256px;
   }
 
   #CustomService-panel{

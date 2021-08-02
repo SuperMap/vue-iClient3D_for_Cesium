@@ -153,10 +153,6 @@ import light from "./light.js";
 export default {
   name: "Sm3dLight",
   props: {
-    // 选中符号类型id
-    selectedTypeId: {
-      type: Number
-    },
     // 颜色
     lightColor: {
       type: String
@@ -188,7 +184,6 @@ export default {
       spotLightAngle,
       config,
       addLight,
-      showLight,
       clearLight,
       visibleModel,
       bubble,
@@ -208,7 +203,6 @@ export default {
       spotLightAngle,
       config,
       addLight,
-      showLight,
       clearLight,
       visibleModel,
       bubble,

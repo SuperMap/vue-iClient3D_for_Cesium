@@ -2,18 +2,78 @@
   <div id="viewshed" class="sm-panel" v-drag>
     <div class="sm-function-module-sub-section" v-stopdrag style="margin:0">
       <div class="sm-half-L">
-        <input checked type="checkbox" v-model="visibleBody" />
-        <label style="width:80%">{{ Resource.displayVisualsBody }}</label>
+        <label style="width: 35%;">{{Resource.addheight}}</label>
+        <el-slider
+          v-model="addheight"
+          :min="1"
+          :step="0.1"
+          :max="10"
+          input-size="mini"
+          :debounce="500"
+          tooltip-class="tooltip-class"
+          style="width:63%"
+        ></el-slider>
       </div>
       <div class="sm-half-L">
-        <input checked type="checkbox" v-model="invisibleBody" />
-        <label style="width:80%">{{ Resource.displayInvisibleBody }}</label>
+        <label style="width: 35%;">{{Resource.verticalFov}}</label>
+        <el-slider
+          v-model="verticalFov"
+          :min="1"
+          :max="179"
+          input-size="mini"
+          :debounce="500"
+          tooltip-class="tooltip-class"
+          style="width:63%"
+        ></el-slider>
       </div>
       <div class="sm-half-L">
-        <input checked type="checkbox" v-model="viewshedAnimation" />
-        <label style="width:80%">{{ Resource.viewshedAnimation }}</label>
+        <label style="width: 35%;">{{Resource.horizontalFov}}</label>
+        <el-slider
+          v-model="horizontalFov"
+          :min="1"
+          :max="179"
+          input-size="mini"
+          :debounce="500"
+          tooltip-class="tooltip-class"
+          style="width:63%"
+        ></el-slider>
       </div>
-      <div class="boxchild flex-between">
+      <div class="sm-half-L">
+        <label style="width: 35%;">{{Resource.hintLineColor}}</label>
+        <el-color-picker v-model="hintLineColor" size="mini" show-alpha style="width:63%"></el-color-picker>
+      </div>
+      <div class="sm-half-L" v-show="!visibleBody && !invisibleBody ">
+        <label style="width: 35%;">{{Resource.visibleAreaColor}}</label>
+        <el-color-picker v-model="visibleAreaColor" size="mini" show-alpha style="width:63%"></el-color-picker>
+      </div>
+      <div class="sm-half-L" v-show="!visibleBody && !invisibleBody ">
+        <label style="width: 35%;">{{Resource.hiddenAreaColor}}</label>
+        <el-color-picker v-model="hiddenAreaColor" size="mini" show-alpha style="width:63%"></el-color-picker>
+      </div>
+      <div class="sm-half-L" v-show="visibleBody">
+        <label style="width: 35%;">{{Resource.visibleBodyColor}}</label>
+        <el-color-picker v-model="visibleBodyColor" size="mini" show-alpha style="width:63%"></el-color-picker>
+      </div>
+      <div class="sm-half-L" v-show="invisibleBody ">
+        <label style="width: 35%;">{{Resource.invisibleBodyColor}}</label>
+        <el-color-picker v-model="invisibleBodyColor" size="mini" show-alpha style="width:63%"></el-color-picker>
+      </div>
+
+      <div class="sm-half-L">
+        <label style="width:auto">
+          <input type="checkbox" v-model="visibleBody" />
+          {{Resource.displayVisualsBody}}
+        </label>
+        <label style="width:auto">
+          <input type="checkbox" v-model="invisibleBody" />
+          {{Resource.displayInvisibleBody}}
+        </label>
+        <label style="width:auto">
+          <input type="checkbox" v-model="viewshedAnimation" />
+          {{Resource.viewshedAnimation}}
+        </label>
+      </div>
+      <div class="boxchild">
         <button type="button" class="tbtn" v-on:click="analysis">{{ Resource.analyze }}</button>
         <button type="button" class="tbtn tbtn-margin-left" @click="clear">{{ Resource.clear }}</button>
       </div>
@@ -106,9 +166,25 @@ export default {
       invisibleBody,
       viewshedAnimation,
       analysis,
-      clear
+      clear,
+      addheight,
+      verticalFov,
+      horizontalFov,
+      hintLineColor,
+      visibleAreaColor,
+      hiddenAreaColor,
+      visibleBodyColor,
+      invisibleBodyColor
     } = viewshed(props);
     return {
+      addheight,
+      verticalFov,
+      horizontalFov,
+      hintLineColor,
+      visibleAreaColor,
+      hiddenAreaColor,
+      visibleBodyColor,
+      invisibleBodyColor,
       visibleBody,
       invisibleBody,
       viewshedAnimation,

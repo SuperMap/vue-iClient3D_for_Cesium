@@ -20,7 +20,7 @@
  * Portions licensed separately.
  * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
-define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographic-f2a06374', './createTaskProcessorWorker', './Cartesian2-16a61632', './AttributeCompression-c177f997'], function (when, Check, _Math, Cartographic, createTaskProcessorWorker, Cartesian2, AttributeCompression) { 'use strict';
+define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographic-f2a06374', './Cartesian2-16a61632', './AttributeCompression-c177f997', './createTaskProcessorWorker'], function (when, Check, _Math, Cartographic, Cartesian2, AttributeCompression, createTaskProcessorWorker) { 'use strict';
 
     var maxShort = 32767;
 

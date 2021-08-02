@@ -97,7 +97,6 @@ function volume(props) {
             //默认体渲染位置
             gridLayer.layerBounds = new Cesium.Rectangle(99.95422, 32.25671, 107.1912, 37.1386);
             gridLayer.zBounds = new Cesium.Cartesian2(500, 50000);
-            console.log(gridLayer)
         })
     }
 

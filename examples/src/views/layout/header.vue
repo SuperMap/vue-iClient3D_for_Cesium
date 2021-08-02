@@ -1,34 +1,38 @@
 <template>
-   <el-header class="el-header">
-      <div class="header-left">
-        <img src="public/img/svg/logo.svg" alt />
-        <span class="title">SuperMap_iClient3D_VUE_for_WebGL</span>
-      </div>
-      <div class="header-right">
-        <ul>
-          <li>
-            <a href="http://support.supermap.com.cn:8090/webgl/web/index.html" target="_blank">首页</a>
-          </li>
-          <li>
-            <a href="https://www.supermapol.com/earth/vue-iEarth/" target="_blank">SuperMap iEarth</a>
-            </li>
-          <!-- <li style="background-color:rgb(85, 84, 84,0.8)">Vue组件</li> -->
-          <li><a href="https://www.supermapol.com/earth/vue-iEarth/examples/docs/SuperMap_iClient3D_VUE_10i(2020)使用指南.pdf" download >文档</a></li>
-          <li title="暂未开放">GitHub</li>
-        </ul>
-      </div>
-    </el-header>
+  <el-header class="el-header">
+    <div class="header-left">
+      <img src="public/img/svg/logo.svg" alt />
+      <span class="title">SuperMap_iClient3D_VUE_for_WebGL</span>
+    </div>
+    <div class="header-right">
+      <ul>
+        <li>
+          <a href="http://support.supermap.com.cn:8090/webgl/web/index.html" target="_blank">首页</a>
+        </li>
+        <li>
+          <a href="https://www.supermapol.com/earth/vue-iEarth/" target="_blank">SuperMap iEarth</a>
+        </li>
+        <li>
+          <a
+            href="https://www.supermapol.com/earth/vue-iEarth/examples/docs/dist/index.html"
+            target="_blank"
+          >文档</a>
+        </li>
+        <li>
+          <a href="https://github.com/SuperMap/iClient3D-vue" target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </el-header>
 </template>
 
 <script>
 export default {
   name: "layout-header",
   data() {
-      return {
-      };
-    },
-    methods: {
-    },
+    return {};
+  },
+  methods: {}
 };
 </script>
 <style lang="scss" scoped>

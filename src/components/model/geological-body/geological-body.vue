@@ -79,7 +79,7 @@
         </div>
         <div class="sm-half-L" v-show="clipType==='drawClip'">
           <label style="width:33%">{{Resource.clipMode}}</label>
-          <select class="sm-select-m" style="width:65%" v-model="drawClipTMode">
+          <select class="sm-select-m" style="width:65%" v-model="drawClipMode">
             <option value="KeepInside">{{Resource.clipOutside}}</option>
             <option value="KeepOutside">{{Resource.clipInside}}</option>
           </select>
@@ -120,7 +120,7 @@ export default {
       startClip,
       clearClip,
       clipType,
-      drawClipTMode
+      drawClipMode
     } = geologicalBody(props);
     return {
       operationType,
@@ -138,7 +138,7 @@ export default {
       startClip,
       clearClip,
       clipType,
-      drawClipTMode
+      drawClipMode
     };
   }
 };

@@ -12,7 +12,7 @@ function s3mlayerAttribute(props) {
     // 设置默认值数据
     let state = reactive({
         maxDistance: 200,  //最大距离
-        maxDHeight: 100,  //最大高度
+        maxHeight: 100,  //最大高度
         setLodrange: false,
         layerNames: [],   //当前存在的可选择s3m图层
         selectedLayerName: 'none',  //默认选择图层名称
@@ -151,7 +151,7 @@ function s3mlayerAttribute(props) {
     watch(() => state.maxDistance, val => {
         facade.farDistance = Number(val);
     });
-    watch(() => state.maxDHeight, val => {
+    watch(() => state.maxHeight, val => {
         facade.maxHeight = Number(val);
     });
     // 监听

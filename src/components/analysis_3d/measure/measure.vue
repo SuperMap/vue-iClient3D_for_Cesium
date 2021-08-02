@@ -65,8 +65,6 @@ export default {
   setup(props) {
     let {
       measureMode, //测量模式
-      clampMode, //贴地模式
-      Ellipsoid, //椭球选择
       isShowDVH, //显示勾选界面
       interval, //等值线距
       isShowLine, //显示等高线
@@ -78,8 +76,6 @@ export default {
 
     return {
       measureMode, //测量模式
-      clampMode, //贴地模式
-      Ellipsoid, //椭球选择
       isShowDVH, //显示勾选界面
       interval, //等值线距
       isShowLine, //显示等高线

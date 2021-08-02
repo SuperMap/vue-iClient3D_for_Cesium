@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 const app = createApp(App);
 app.config.productionTip = false;
-
+import '@babel/polyfill'
 
 // 第三方库ui
 import ElementPlus from 'element-plus';

@@ -104,7 +104,6 @@ function initViewer(props, callback) {
     });
   }
 
-
   // 添加图层
   try {
     if (props && props.openingAnimation) {
@@ -115,9 +114,7 @@ function initViewer(props, callback) {
     }
     if (props && props.sceneUrl) {
       addScene(props.sceneUrl, {}, (layer) => {
-        // for(let i =0;i<storeDate.layers.length;i++){
-        //   storeDate.layers[i].selectEnabled = false
-        // }
+       
       });
     }
     if (props && props.s3mScps) {

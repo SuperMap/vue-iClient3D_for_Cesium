@@ -20,7 +20,7 @@
  * Portions licensed separately.
  * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
-define(['./when-8d13db60', './Check-70bec281', './createTaskProcessorWorker', './RuntimeError-ba10bc3e', './pako_inflate-8ea163f9'], function (when, Check, createTaskProcessorWorker, RuntimeError, pako_inflate) { 'use strict';
+define(['./when-8d13db60', './Check-70bec281', './RuntimeError-ba10bc3e', './createTaskProcessorWorker', './pako_inflate-8ea163f9'], function (when, Check, RuntimeError, createTaskProcessorWorker, pako_inflate) { 'use strict';
 
     var compressedMagic = 0x7468dead;
         var compressedMagicSwap = 0xadde6874;

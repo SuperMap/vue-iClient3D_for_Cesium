@@ -309,7 +309,7 @@ function particleSystem(props) {
             window.tooltip.showAt(' <p>点击鼠标左键确认烟花中心位置</p>', '400px');
             return;
         }
-        window.tooltip.showAt(' <p>点击鼠标左键确认位置</p><p>右键单击结束分析</p><p>选中模型进行编辑</p> ', '400px');
+        window.tooltip.showAt(' <p>点击鼠标左键确认位置</p><p>右键单击结束添加</p><p>选中模型进行删除和编辑</p> ', '400px');
 
         // if(state.particleSelectedId === 0)
         // addFlame();

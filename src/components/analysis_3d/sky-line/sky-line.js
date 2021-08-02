@@ -14,12 +14,13 @@ function skyLine(props) {
         lineWidth: 3,   //天际线宽度
         skylineColor: "rgb(200, 0, 0)",   //天际线颜色
         skyBodyColor: "rgba(44,149,197,0.6)",   //天际体颜色
-        highlightBarrierColor: "rgba(255, 186, 1, 1)",   //障碍物颜色
+        barrierColor: "rgba(255, 186, 1, 1)",   //障碍物颜色
         skylineMode: 0,   //分析模式
-        highlightBarrier: true,   //是否显示高亮障碍物
+        highlightBarrier: false,   //是否显示高亮障碍物
         getSkyline2d: true,    //是否显示二维分析结果
-        spatialAnalysisUrl: 'http://www.supermapol.com/realspace/services/spatialAnalysis-data_all/restjsr/spatialanalyst/geometry/3d/skylinesectorbody.json',   //分析服务地址
+        skylineSpatialAnalysisUrl: null,   //分析服务地址 'http://www.supermapol.com/realspace/services/spatialAnalysis-data_all/restjsr/spatialanalyst/geometry/3d/skylinesectorbody.json'
         observerInformation: null,  //观察者信息
+        ignoreGlobe: true,  // 地球表面不参与分析
     });
 
     // 传入props改变默认值
@@ -43,6 +44,7 @@ function skyLine(props) {
     if (storeState.isViewer) {
         scene = viewer.scene;
         skyline = new Cesium.Skyline(scene);
+        skyline.ignoreGlobe = state.ignoreGlobe;  //地球表面不参与分析
         skyline.build();
         s3mInstance = new Cesium.S3MInstanceCollection(scene._context);
         scene.primitives.add(s3mInstance);
@@ -59,6 +61,7 @@ function skyLine(props) {
         if (val) {
             scene = viewer.scene;
             skyline = new Cesium.Skyline(viewer.scene);
+            skyline.ignoreGlobe = state.ignoreGlobe;
             skyline.build();
             s3mInstance = new Cesium.S3MInstanceCollection(viewer.scene._context);
             viewer.scene.primitives.add(s3mInstance);
@@ -139,7 +142,7 @@ function skyLine(props) {
         }
         tooltip.setVisible(false);
         if (tipFlag) {   //只提示一次
-            window.tooltip.showAt(' <p>点击鼠标左键绘制区域</p><p>点击鼠标右键结束绘制</p>', '300px');
+            window.tooltip.showAt(' <p>点击鼠标左键绘制区域</p><p>点击鼠标右键结束绘制</p>', '450px');
             tipFlag = false
         }
         handlerDrawing("Polygon").then(
@@ -195,16 +198,16 @@ function skyLine(props) {
         setTimeout(() => {
             if (state.highlightBarrier) { // 显示障碍物
                 let BarrierColor = Cesium.Color.fromCssColorString(
-                    state.highlightBarrierColor
+                    state.barrierColor
                 );
                 changeBarrierColor(BarrierColor);
             }
             if (state.skylineMode == 2) {   // 是否切换天际体
-                if (props && props.spatialAnalysisUrl) {
+                if (state.skylineSpatialAnalysisUrl) {
                     setSkyLineBody(observerObj)
                 } else {
-                    // setSkyLineBody2(observerObj)
-                    setSkyLineBody(observerObj)
+                    setSkyLineBody2(observerObj)
+                    // setSkyLineBody(observerObj)
                 }
             }
             let object = skyline.getSkyline2D();
@@ -315,7 +318,7 @@ function skyLine(props) {
             lonlat: true
         };
 
-        let url = state.spatialAnalysisUrl;
+        let url = state.skylineSpatialAnalysisUrl;
         let queryData = JSON.stringify(geometrySkylineSectorBodyPostParameter);
         axios
             .post(url, queryData)
@@ -416,8 +419,8 @@ function skyLine(props) {
         }
     });
     watch(() => state.lineWidth, val => {
+        skyline.lineWidth = Number(val);
         if (state.observerInformation) {
-            skyline.lineWidth = Number(val);
             skyline.pitch = parseFloat(state.observerInformation.pitch); //加上才能实时改变线宽，可能是缺陷
         }
     });
@@ -428,16 +431,21 @@ function skyLine(props) {
             skyline.pitch = parseFloat(state.observerInformation.pitch);
         }
     });
-    watch(() => state.highlightBarrierColor, newValue => {
+    watch(() => state.barrierColor, newValue => {
         if (state.observerInformation || !state.highlightBarrier) {
             let BarrierColor = Cesium.Color.fromCssColorString(newValue);
             changeBarrierColor(BarrierColor);
         }
     });
+    watch(() => state.ignoreGlobe, newValue => {
+        if (skyline) skyline.ignoreGlobe = newValue;
+    });
+
+
     watch(() => state.highlightBarrier, newValue => {
         if (newValue && state.observerInformation) {
             let BarrierColor = Cesium.Color.fromCssColorString(
-                state.highlightBarrierColor
+                state.barrierColor
             );
             changeBarrierColor(BarrierColor);
         } else {
@@ -449,11 +457,11 @@ function skyLine(props) {
     });
     watch(() => state.skyBodyColor, newValue => {
         if (state.observerInformation && newValue != "") {
-            let color = Cesium.Color.fromCssColorString(val);
-            if (props && props.spatialAnalysisUrl) {
+            let color = Cesium.Color.fromCssColorString(newValue);
+            if (state.skylineSpatialAnalysisUrl) {
                 s3mInstance.getInstance("SkyLineBody", 1).updateColor(color);
             } else {
-                viewer.entities.getById('SkyLineBody').polygon.material = color
+                viewer.entities.getById('SkyLineBody').polygon.material = color //不走服务用这个
             }
         }
     });
@@ -488,11 +496,11 @@ function skyLine(props) {
             // 需要iServer910支持=
             skyline.displayStyle = 0;
             if (state.observerInformation) {
-                if (props && props.spatialAnalysisUrl) {
+                if (state.skylineSpatialAnalysisUrl) {
                     setSkyLineBody(state.observerInformation)
                 } else {
-                    // setSkyLineBody2(state.observerInformation)
-                    setSkyLineBody(state.observerInformation)
+                    setSkyLineBody2(state.observerInformation)
+                    // setSkyLineBody(state.observerInformation)
                 }
             }
         }

@@ -220,6 +220,8 @@ z-index: 999;
   transition-duration: 0.5s;
   p{
     margin: 6px 0;
+    // position: absolute;
+    // position: relative;
   }
 }
 
@@ -228,6 +230,7 @@ z-index: 999;
   width:  auto;
   @include  cal-max-height(200px);
   max-width: 350px;
+}
   .tab thead, .tab tr {
     border-top-width: 1px;
     border-top-style: solid;
@@ -259,6 +262,41 @@ z-index: 999;
   .tab tr:nth-child(odd) {
     background: #FFF
   }
-}
 
-
+  .tab2{
+    td,th{
+      width: 33%;
+      padding: 4px ;
+      height: 15px;
+      border-color: var(--border-color) !important;
+      .input{
+        background: var(--panel-bg-color) !important;
+        width: 76%;
+        height: 92%;
+        border: none;
+        position: absolute;
+        overflow: hidden;
+        position: absolute;
+        right: 15px;
+        top: 0;
+        text-align: center;
+      }
+      .input2{
+        background: var(--panel-bg-color) !important;
+        width: 90%;
+        border: none;
+        text-align: center;
+      }
+      select{
+        border:none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    tr{
+      background: var(--panel-bg-color) !important
+    }
+  }

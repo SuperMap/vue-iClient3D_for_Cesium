@@ -20,7 +20,7 @@
  * Portions licensed separately.
  * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
-define(['./when-8d13db60', './createTaskProcessorWorker', './RuntimeError-ba10bc3e', './WebGLConstants-4c11ee5f', './PixelFormat-e6d821ed'], function (when, createTaskProcessorWorker, RuntimeError, WebGLConstants, PixelFormat) { 'use strict';
+define(['./when-8d13db60', './RuntimeError-ba10bc3e', './WebGLConstants-4c11ee5f', './createTaskProcessorWorker', './PixelFormat-e6d821ed'], function (when, RuntimeError, WebGLConstants, createTaskProcessorWorker, PixelFormat) { 'use strict';
 
     // Modified from texture-tester
     // See:

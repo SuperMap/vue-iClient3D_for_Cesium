@@ -110,6 +110,7 @@ function measure(props) {
             handlerArea.areaLabel.text = "面积:" + area;
         });
 
+        let point1,point2;
         //初始化测量高度
         handlerHeight.measureEvt.addEventListener(result => {
             let distance =
@@ -130,10 +131,11 @@ function measure(props) {
             handlerHeight.hLabel.text = "水平距离:" + hDistance;
             handlerHeight.hLabel.verticalOrigin = Cesium.VerticalOrigin.BOTTOM;
             //实时等高线显示
-            lineHeight = Number(result.verticalHeight)+ height_0;
-            if (state.isShowLine) {
-                updateContourLine(lineHeight)
-            }
+           point1= Cesium.Cartographic.fromCartesian(result.verticalPositions[0]);
+           point2= Cesium.Cartographic.fromCartesian(result.verticalPositions[1]);
+            if(point1.height>point2.height) lineHeight = Number(result.verticalHeight)+ height_0;
+            else lineHeight = -Number(result.verticalHeight)+ height_0;
+            if (state.isShowLine) updateContourLine(lineHeight)
         });
 
         handlerHeight.activeEvt.addEventListener(isActive => {

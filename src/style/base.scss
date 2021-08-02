@@ -47,23 +47,20 @@
     width: calc(#{$wt} * 0.8) ;
   }
   @media (max-width: 750px) {
-    width: calc(#{$wt}* 0.7) ;
+    width: calc(#{$wt}* 0.75) ;
   }
   @media (max-width: 500px) {
-    width: calc(#{$wt}* 0.65) ;
+    width: calc(#{$wt}* 0.67) ;
   }
   @media (max-height: 750px) {
-    width: calc(#{$wt}* 0.8) ;
+    width: calc(#{$wt}* 0.9) ;
   }
   @media (max-height: 500px) {
-    width: calc(#{$wt}* 0.75) ;
+    width: calc(#{$wt}* 0.85) ;
   }
 
   @media (max-height: 400px) {
-    width: calc(#{$wt}* 0.7) ;
-  }
-  @media (max-height: 300px) {
-    width: calc(#{$wt}* 0.65) ;
+    width: calc(#{$wt}* 0.8) ;
   }
 }
 
@@ -72,26 +69,26 @@
 @mixin cal-height($ht){
   height:$ht;
   @media (max-height: 750px) {
-    height: calc(#{$ht} * 0.8) ;
+    height: calc(#{$ht} * 0.9) ;
   }
   @media (max-height: 500px) {
-    height: calc(#{$ht} * 0.7) ;
+    height: calc(#{$ht} * 0.85) ;
   }
 
   @media (max-height: 400px) {
-    height: calc(#{$ht} * 0.6) ;
+    height: calc(#{$ht} * 0.8) ;
   }
   @media (max-height: 300px) {
-    height: calc(#{$ht} * 0.5) ;
+    height: calc(#{$ht} * 0.7) ;
   }
   @media (max-width: 1000px) {
     height: calc(#{$ht} * 0.9) ;
   }
   @media (max-width: 750px) {
-    height: calc(#{$ht} * 0.9) ;
+    height: calc(#{$ht} * 0.85) ;
   }
   @media (max-width: 500px) {
-    height: calc(#{$ht} * 0.7) ;
+    height: calc(#{$ht} * 0.8) ;
   }
 }
 

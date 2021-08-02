@@ -20,7 +20,7 @@
  * Portions licensed separately.
  * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
-define(['exports', './when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographic-f2a06374', './Cartesian2-16a61632', './BoundingSphere-356f49c6', './IntersectionTests-d118a357', './Plane-29aa8f4d', './EllipsoidRhumbLine-87f26cac', './EllipsoidGeodesic-9ef071e0'], function (exports, when, Check, _Math, Cartographic, Cartesian2, BoundingSphere, IntersectionTests, Plane, EllipsoidRhumbLine, EllipsoidGeodesic) { 'use strict';
+define(['exports', './when-8d13db60', './Check-70bec281', './Math-61ede240', './Cartographic-f2a06374', './Cartesian2-16a61632', './BoundingSphere-d018a565', './IntersectionTests-813bb943', './Plane-aa6c3ce5', './EllipsoidRhumbLine-87f26cac', './EllipsoidGeodesic-9ef071e0'], function (exports, when, Check, _Math, Cartographic, Cartesian2, BoundingSphere, IntersectionTests, Plane, EllipsoidRhumbLine, EllipsoidGeodesic) { 'use strict';
 
     /**
          * @private

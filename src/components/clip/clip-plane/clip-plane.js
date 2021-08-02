@@ -11,7 +11,7 @@ import { storeState } from '../../../js/store/store.js'   //简单局部状态�
 function clipPlaneAnalysis(props) {
     // 设置默认值数据
     let state = reactive({
-        isEdit: false,//是否编辑
+        isEdit: true,//是否编辑
         isEditZ: false,
         lineVisible: true,//是否显示绘制线
         PlanePositions: []
@@ -57,6 +57,7 @@ function clipPlaneAnalysis(props) {
     })
     // 分析
     function clipPlaneStart(e) {
+        console.log(1)
         e.preventDefault();
         tooltip.setVisible(false);
         tooltip.showAt(' <p>点击鼠标左键开始绘制</p><p>绘制三点确定一个平面</p><p>点击鼠标右键结束绘制</p>', '230px');
@@ -79,7 +80,7 @@ function clipPlaneAnalysis(props) {
                 // handlerPolygon.polyline.show = false;
                 window.handlerPolygon.deactivate();
                 tooltip.setVisible(false);
-                if (state.isEdit) {
+                if (true) {
                     Edit(planePosition, state.isEditZ, clipPlaneUpdate);
                 }
             },
@@ -96,7 +97,7 @@ function clipPlaneAnalysis(props) {
     function clipPlaneUpdate(p) {
         planePosition = p;
         for (let layer of layers) {
-            layer.clearCustomClipBox();
+            // layer.clearCustomClipBox();
             layer.setCustomClipPlane(
                 p[0],
                 p[1],
@@ -120,7 +121,7 @@ function clipPlaneAnalysis(props) {
     // 监听
 
     watch(() => state.isEdit, val => {
-        if (val && window.handlerPolygon) {
+        if (val || window.handlerPolygon) {
             Edit(planePosition, state.isEditZ, clipPlaneUpdate);
         } else {
             clearEditHandler("Polygon");

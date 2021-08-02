@@ -181,6 +181,14 @@ function openness(props) {
         let HiddenColor = Cesium.Color.fromCssColorString(val);
         viewDome.hiddenAreaColor = HiddenColor;
     });
+    watch(() => state.addHeight, (val,oldval) => {
+        let h = val - oldval;
+        h = Cesium.defaultValue(h,0);
+        viewDome.viewPosition[2] += Number(h);
+        Entypositions = Cesium.Cartesian3.fromDegrees(viewDome.viewPosition[0], viewDome.viewPosition[1], viewDome.viewPosition[2]);
+        viewDome.startAngle = Number(state.startAngle)
+    });
+    
   
     // 销毁
     onBeforeUnmount(() => {

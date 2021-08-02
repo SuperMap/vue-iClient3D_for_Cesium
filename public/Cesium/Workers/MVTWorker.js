@@ -20,7 +20,7 @@
  * Portions licensed separately.
  * See https://github.com/CesiumGS/cesium/blob/master/LICENSE.md for full licensing details.
  */
-define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './createTaskProcessorWorker', './FeatureDetection-7bd32c34', './Color-69f1845f', './pbf-9fe59c76'], function (when, Check, _Math, createTaskProcessorWorker, FeatureDetection, Color, pbf) { 'use strict';
+define(['./when-8d13db60', './Check-70bec281', './Math-61ede240', './FeatureDetection-7bd32c34', './createTaskProcessorWorker', './Color-69f1845f', './pbf-9fe59c76'], function (when, Check, _Math, FeatureDetection, createTaskProcessorWorker, Color, pbf) { 'use strict';
 
     // 用来根据Mapbox style标准构建过滤器和定义过滤方法
     function MvtFilter() {
