@@ -1,0 +1,26 @@
+{
+    "PBR param": {
+        "BaseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "EmissionFactor": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "MetallicFactor": 1.0,
+        "RoughnessFactor": 0.2,
+        "AlphaMode": "OPAQUE",
+        "BaseColorTexture": {
+            "BaseColorTextureIndex": 0,
+            "BaseColorTextureCoordIndex": 0
+        },
+        "NormalTexture": {
+            "NormalTextureIndex": 1,
+            "NormalTextureCoordIndex": 0
+        }
+    }
+}

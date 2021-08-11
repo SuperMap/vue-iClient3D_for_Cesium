@@ -1,0 +1,18 @@
+{
+    "PBR param": {
+        "BaseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "EmissionFactor": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "MetallicFactor": 0.0,
+        "RoughnessFactor": 0.19999998807907105,
+        "AlphaMode": "OPAQUE"
+    }
+}
