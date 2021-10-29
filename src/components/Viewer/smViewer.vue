@@ -163,7 +163,13 @@ export default {
     if(window.viewer){
         window.location.reload();
     }
-  }
+  },
+  //销毁
+  destroyed() {
+    store.setComponentShow([]);
+    store.setComponentName([]);
+    store.setComponentType([]); 
+},
 };
 </script>
 <style lang="scss"  scoped>
