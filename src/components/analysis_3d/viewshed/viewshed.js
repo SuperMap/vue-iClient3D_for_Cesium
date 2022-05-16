@@ -482,15 +482,15 @@ function viewshed(props) {
             }
         }
     });
-    watch(() => state.addheight, val => {
-        if (val === '' || val < 0) {    // 避免删除导致崩溃
-            val = 0
+    watch(() => state.addheight, (newval,oldval) => {
+        if (newval === '' || newval < 0) {    // 避免删除导致崩溃
+			newval = 0
         }
         if (state.observerInformation) {
-            state.observerInformation[2] += parseFloat(val);
+			state.observerInformation[2]-=oldval;
+            state.observerInformation[2] += parseFloat(newval);
             viewshed3D.viewPosition = state.observerInformation;
         }
-
     });
     watch(() => state.pitch, val => {
         if (val === '' || val < 0) {    // 避免删除导致崩溃
