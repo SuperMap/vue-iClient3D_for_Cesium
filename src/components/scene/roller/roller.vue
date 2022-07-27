@@ -1,4 +1,5 @@
 <template>
+<div>
   <div id="split-screen-panel" class="sm-panel" v-drag>
     <div class="sm-function-module-sub-section" style="margin:0" v-stopdrag>
       <div class="sm-half-L">
@@ -51,6 +52,7 @@
   <div id="verticalSliderRight" ref="verticalSliderRight"></div>
   <div id="horizontalSliderTop" ref="horizontalSliderTop"></div>
   <div id="horizontalSliderBottom" ref="horizontalSliderBottom"></div>
+  </div>
 </template>
 
 <script>
