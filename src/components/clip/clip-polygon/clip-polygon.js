@@ -23,7 +23,7 @@ function clipPolygonAnalysis(props) {
             if (state.hasOwnProperty(key)) {
                 state[key] = props[key]
             } else {
-                tool.Message.errorMsg(resource.AttributeError + key);
+                tool.Message && tool.Message.errorMsg(resource.AttributeError + key);
             }
         }
     }
@@ -93,7 +93,7 @@ function clipPolygonAnalysis(props) {
         );
         window.handlerPolygon.activate();
         if (!scene.pickPositionSupported) {
-            tool.Message.errorMsg(resource.NoPickPositionSupported);
+            tool.Message && tool.Message.errorMsg(resource.NoPickPositionSupported);
         }
     };
     // 更新

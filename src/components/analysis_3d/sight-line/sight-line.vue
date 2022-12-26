@@ -57,23 +57,28 @@ export default {
     },
     //可见部分颜色
     visibleColor: {
-      type: String
+      type: String,
+      default: "rgb(0, 200, 0)"
     },
     //不可见颜色
     hiddenColor: {
-      type: String
+      type: String,
+      default: "rgb(200, 0, 0)"
     },
     //高亮障碍物颜色
     barrierColor: {
-      type: String
+      type: String,
+      default: "rgba(255, 186, 1, 1)"
     },
     //是否显示高亮障碍物
     highlightBarrier: {
-      type: Boolean
+      type: Boolean,
+      default: false
     },
     //通视线宽
     lineWidth: {
-      type: Number
+      type: Number,
+      default: 3
     },
     showBarrierPoints: {
       type: Boolean,

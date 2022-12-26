@@ -124,6 +124,7 @@ function promiseWhen(promiseArray, callback, type) {
     Cesium.when.all(
         promiseArray,
         function (layers) {
+            console.log("layers:",layers)
             storeDate.layers = viewer.scene.layers.layerQueue;
             actions.setChangeLayers();
             callback(layers[0],type);

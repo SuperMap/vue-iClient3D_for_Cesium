@@ -30,7 +30,14 @@ function measure(props) {
     isoline.MaxVisibleValue = -100;
     isoline.MinVisibleValue = -100;
 
+
+
     var init = () => {
+
+        setInterval(()=>{
+            console.log("now-state.pickPointEnabled:",state.pickPointEnabled)
+        },2000)
+
         layers = viewer.scene.layers.layerQueue;
         viewer.scene.globe.HypsometricSetting = {
             hypsometricSetting: isoline,
@@ -110,31 +117,17 @@ function measure(props) {
             handlerArea.areaLabel.text = "面积:" + area;
         });
 
-        let point1,point2;
+        // let point1,point2;
         //初始化测量高度
         handlerHeight.measureEvt.addEventListener(result => {
-            let distance =
-                result.distance > 1000
-                    ? (result.distance / 1000).toFixed(2) + "km"
-                    : (result.distance / 1).toFixed(2) + "m";
-            let vHeight =
-                result.verticalHeight > 1000
-                    ? (result.verticalHeight / 1000).toFixed(2) + "km"
-                    : (result.verticalHeight / 1).toFixed(2) + "m";
-            let hDistance =
-                result.horizontalDistance > 1000
-                    ? (result.horizontalDistance / 1000).toFixed(2) + "km"
-                    : (result.horizontalDistance / 1).toFixed(2) + "m";
-            handlerHeight.disLabel.text = "空间距离:" + distance;
-            handlerHeight.vLabel.text = "垂直高度:" + vHeight;
-            handlerHeight.vLabel.horizontalOrigin = Cesium.HorizontalOrigin.RIGHT;
-            handlerHeight.hLabel.text = "水平距离:" + hDistance;
-            handlerHeight.hLabel.verticalOrigin = Cesium.VerticalOrigin.BOTTOM;
+            let distance = result.distance > 1000 ? (result.distance / 1000).toFixed(2) + 'km' : result.distance + 'm';
+            let vHeight = result.verticalHeight > 1000 ? (result.verticalHeight / 1000).toFixed(2) + 'km' : result.verticalHeight + 'm';
+            let hDistance = result.horizontalDistance > 1000 ? (result.horizontalDistance / 1000).toFixed(2) + 'km' : result.horizontalDistance + 'm';
+            handlerHeight.disLabel.text = '空间距离:' + distance;
+            handlerHeight.vLabel.text = '垂直高度:' + vHeight;
+            handlerHeight.hLabel.text = '水平距离:' + hDistance;
             //实时等高线显示
-           point1= Cesium.Cartographic.fromCartesian(result.verticalPositions[0]);
-           point2= Cesium.Cartographic.fromCartesian(result.verticalPositions[1]);
-            if(point1.height>point2.height) lineHeight = Number(result.verticalHeight)+ height_0;
-            else lineHeight = -Number(result.verticalHeight)+ height_0;
+            lineHeight = Number(result.endHeight);
             if (state.isShowLine) updateContourLine(lineHeight)
         });
 
@@ -150,6 +143,8 @@ function measure(props) {
                 viewer.scene.pickPointEnabled = false;
             }
         });
+
+
     };
 
     if (storeState.isViewer) {

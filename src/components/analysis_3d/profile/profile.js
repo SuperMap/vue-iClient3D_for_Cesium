@@ -123,7 +123,7 @@ function profile(props) {
                 handlerPolyline.polyline.show = false;
                 window.polylineTransparent.show = false; //半透线隐藏
                 handlerPolyline.deactivate();
-                updataProfile3D('', res.result.object); //更新剖面
+                updataProfile3D('', res.result.positions); //更新剖面
                 Edit(EditPositions, false, updataProfile3D); //编辑功能
                 tooltip.setVisible(false);
             },
@@ -162,9 +162,9 @@ function profile(props) {
         Cartesians.length = 0; //清空之前的点数据
         let positions = [];
         //折线实现
-        for (let i = 1, j = line._positions.length; i < j; i++) {
-            let startPoint = line._positions[i - 1];
-            let endPoint = line._positions[i];
+        for (let i = 1, j = line.length; i < j; i++) {
+            let startPoint = line[i - 1];
+            let endPoint = line[i];
             let d = Cesium.Cartesian3.distance(startPoint, endPoint)
             getCount(parseInt(d));
             for (let i = 1, j = count; i <= j; i++) {

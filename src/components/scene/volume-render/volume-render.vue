@@ -330,6 +330,7 @@ export default {
       timeRange,
       clear
     } = volume(props);
+
     return {
       operationType,
       dimensions,

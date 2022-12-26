@@ -73,11 +73,14 @@ function clipPlane(props) {
         }
         handlerDrawing("Polyline").then(
             res => {
+
+                console.log("res:",res)
+
                 let handlerPolyline = window.handlerPolyline;
                 handlerPolyline.polyline.show = false;
                 window.polylineTransparent.show = false; //半透线隐藏
                 handlerPolyline.deactivate();
-                setPlanePositions(res.positions, res.result.object._positions);
+                setPlanePositions(res.positions, res.result.positions);
                 tooltip.setVisible(false);
             },
             (err) => {

@@ -62,6 +62,8 @@ function s3mlayerOperation(props) {
                 state.selectedLayerName = state.layerNames[0];
                 selectedLayer = layers[0];
             }
+        }else{
+            state.layerNames = []
         }
     }
 

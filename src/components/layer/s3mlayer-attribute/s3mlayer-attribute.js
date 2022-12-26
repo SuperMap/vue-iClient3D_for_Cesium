@@ -68,6 +68,8 @@ function s3mlayerAttribute(props) {
                 state.selectedLayerName = state.layerNames[0];
                 selectedLayer = layers[0];
             }
+        }else{
+            state.layerNames = []
         }
     }
 
@@ -127,7 +129,7 @@ function s3mlayerAttribute(props) {
             }
     });
     watch(() => state.shadowDarkness, val => {
-        viewer.shadowMap.darkness = Number(val);
+        viewer.scene.shadowMap.darkness = Number(val);
     });
     watch(() => state.multiChoose, val => {
         if (selectedLayer)

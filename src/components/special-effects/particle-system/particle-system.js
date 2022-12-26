@@ -56,6 +56,7 @@ function particleSystem(props) {
     if (props) {
         for (let key in props) {
             if (state.hasOwnProperty(key)) {
+                if(props[key] != undefined)
                 state[key] = props[key]
             } else {
                 tool.Message.errorMsg(resource.AttributeError + key);
@@ -64,7 +65,7 @@ function particleSystem(props) {
     }
 
     // 初始化数据
-    let currentSelectedEntity, selectParticleSystem, s3mInstanceColc;
+    let currentSelectedEntity, selectParticleSystem, s3mInstanceColc,clickCount;
     let isAddParticleSystem = false;
     let entityParticlePairs = new Map(); // Entity和点光源对象的键值对
     let modelUrl = 'public/data/s3m/box.s3m';
@@ -100,9 +101,6 @@ function particleSystem(props) {
         blue: 0.0,
         alpha: 1.0
     }];
-
-
-
 
     if (storeState.isViewer) {
         if (!window.tooltip) {
@@ -160,28 +158,15 @@ function particleSystem(props) {
     }
 
     function setSceneForFireWork(isFlage) {
-        if (isFlage) {
-            // scene.highDynamicRange = true;
-            scene.globe.show = false;
-            scene.sun.show = false;
-            scene.globe.enableLighting = false;
-            scene.particlePostRender.quality = 1.0;
-            scene.bloomEffect.show = true;
-            scene.bloomEffect.threshold = 0.8;
-            scene.bloomEffect.bloomIntensity = 3.6;
-            viewer.scene.skyAtmosphere.show = false;
-            return;
-        }
-        // scene.highDynamicRange = false;
-        scene.globe.show = true;
-        scene.sun.show = true;
-        scene.globe.enableLighting = true;
-        scene.particlePostRender.quality = 0.25;
-        scene.bloomEffect.show = false;
-        scene.bloomEffect.threshold = 0;
-        scene.bloomEffect.bloomIntensity = 1.34;
-        viewer.scene.skyAtmosphere.show = true;
-    }
+        viewer.scene.globe.show = isFlage ? false : true;
+        viewer.scene.sun.show = isFlage ? false : true;
+        viewer.scene.globe.enableLighting = isFlage ? false : true;
+        viewer.scene.particlePostRender.quality = isFlage ? 1.0 : 0.25;
+        viewer.scene.bloomEffect.show = !isFlage ? false : true;
+        viewer.scene.bloomEffect.threshold = isFlage ? 0.8 : 0;
+        viewer.scene.bloomEffect.bloomIntensity = isFlage ? 3.6 : 1.34;
+        viewer.scene.skyAtmosphere.show = isFlage ? false : true;
+      }
 
     // 喷射火
     function addFJetFire() {
@@ -248,6 +233,8 @@ function particleSystem(props) {
 
 
     function click_addParticle(e) {
+        clickCount++
+
         if (isAddParticleSystem) {
             let centerPosition = viewer.scene.pickPosition(e.message.position);
             if (state.particleSelectedId === 0)
@@ -272,6 +259,7 @@ function particleSystem(props) {
     }
 
     function right_click_removeEvent() {
+        clickCount = 0
         window.tooltip.setVisible(false);
         document.body.classList.remove("measureCur");
         // viewer.eventManager.removeEventListener("CLICK", click_addParticle);
@@ -367,13 +355,38 @@ function particleSystem(props) {
     }
 
     function clear() {
-        if (selectParticleSystem) selectParticleSystem.clear();
+        // let primitives = viewer.scene.primitives
+        // console.log("primitives._primitives:",primitives._primitives)
+        // primitives._primitives && primitives.removeAll()
+        // viewer.scene._primitives.remove(s3mInstanceColc);
+        // console.log("entityParticlePairs:",entityParticlePairs)
+        // console.log("currentSelectedEntity:",currentSelectedEntity)
+        
         if (fireWorkSystem) { fireWorkSystem.clearFireWoke(); setSceneForFireWork(false);fireWorkSystem = null };
-        if (currentSelectedEntity) {
-            entityParticlePairs.delete(currentSelectedEntity.id);
-            s3mInstanceColc.removeInstance(modelUrl, currentSelectedEntity.id);
-            currentSelectedEntity = null;
+        
+        // if (selectParticleSystem) selectParticleSystem.clear();
+        // if (currentSelectedEntity) {
+        //     entityParticlePairs.delete(currentSelectedEntity.id);
+        //     s3mInstanceColc.removeInstance(modelUrl, currentSelectedEntity.id);
+        //     currentSelectedEntity = null;
+        // }
+
+        // 删除粒子特效时，需要将特效和底座那个立方体都给删除了
+        // 删除特效
+        entityParticlePairs.forEach(entityParticle=>{
+            entityParticle.clear()
+        })
+
+        // 将map类型转为普通对象好获取到key，以便删除
+        // 删除立方体底座
+        let obj = Object.fromEntries(entityParticlePairs)
+        for(let key in obj){
+            console.log("key:",key)
+            entityParticlePairs.delete(key);
+            s3mInstanceColc.removeInstance(modelUrl, key);
         }
+
+
         if (entityParticlePairs.size === 0) viewer.eventManager.removeEventListener("CLICK", click_addParticle);
         if (modelEditor) modelEditor.deactivate();
         isAddParticleSystem = false;
@@ -504,6 +517,12 @@ function particleSystem(props) {
     watch(() => state.visibleModel, val => {
         s3mInstanceColc.visible = val
         if (modelEditor) modelEditor.deactivate();
+
+        // if(val){
+        //     viewer.scene.layers.layerQueue.forEach(layer=>{
+        //         layer.selectEnabled = false;
+        //     })
+        // }
     })
     watch(() => state.ringRadius, val => {
         if (!selectParticleSystem) return;

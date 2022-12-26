@@ -87,7 +87,7 @@ function obliquePhotography(props) {
         );
         window.handlerPolygon.activate();
         if (!viewer.scene.pickPositionSupported) {
-            tool.Message.errorMsg(resource.NoPickPositionSupported);
+            tool.Message && tool.Message.errorMsg(resource.NoPickPositionSupported);
         }
 
     }
@@ -139,7 +139,7 @@ function obliquePhotography(props) {
 
         window.handlerPolygon.activate();
         if (!viewer.scene.pickPositionSupported) {
-            tool.Message.errorMsg(resource.NoPickPositionSupported);
+            tool.Message && tool.Message.errorMsg(resource.NoPickPositionSupported);
         }
     }
     function clearFlatten(e) {

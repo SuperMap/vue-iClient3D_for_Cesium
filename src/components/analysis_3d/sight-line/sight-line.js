@@ -23,10 +23,12 @@ function sightLine(props) {
         showBarrierPoints:true
     });
 
+    
     // 传入props改变默认值
     if (props) {
         for (let key in props) {
             if (state.hasOwnProperty(key)) {
+                if(props[key] != undefined)
                 state[key] = props[key]
             } else {
                 tool.Message.errorMsg(resource.AttributeError + key);
@@ -278,19 +280,23 @@ function sightLine(props) {
     // 获取障碍物
     function getHighlightBarriers(barrierColor) {
         let color = Cesium.defaultValue(barrierColor,Cesium.Color.fromCssColorString(state.barrierColor));
-        try {
-            if (ObjectIds.length === 0) return;
-            ObjectIds.forEach((ObjectId) => {
-                for (let index in ObjectId) {
-                    let layer = viewer.scene.layers.findByIndex(Number(index) - 3); // 底层索引从3开始
-                    let ids = ObjectId[index];
-                    layer.setObjsColor(ids, color);
-                }
-            })
+        
+        let layerQueue =  viewer.scene.layers.layerQueue
 
-        } catch (error) {
-            console.log(error)
-        }
+        let barrierObj = ObjectIds[ObjectIds.length-1]
+        let barrierIds = barrierObj[String(Object.keys(barrierObj))]
+        console.log("barrierIds:",barrierIds)
+
+        // console.log("layerQueue[2]:",layerQueue[2]._name)
+
+        // S3M--Building@CBD
+        // layerQueue[2].setObjsColor(barrierIds, color);
+
+        layerQueue.forEach(layer =>{
+            if(layer._name === 'Building@CBD'){
+                layer.setObjsColor(barrierIds, color);
+            }
+        })
     }
 
 

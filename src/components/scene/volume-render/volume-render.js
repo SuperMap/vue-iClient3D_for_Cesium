@@ -16,10 +16,10 @@ function volume(props) {
         dimensions: [],
         variables: [],
         selectedDateName: null,
-        xDim: null,
-        yDim: null,
-        zDim: null,
-        timeDim: null,
+        xDim: 100,
+        yDim: 200,
+        zDim: 9,
+        timeDim: 40,
         //数值模式
         drawMode: 'volume',
         opacityInterval: [0, 1],
@@ -94,6 +94,7 @@ function volume(props) {
             state.yDim = state.dimensions[0].name;
             state.zDim = state.dimensions[0].name;
             state.timeDim = state.dimensions[0].name;
+
             //默认体渲染位置
             gridLayer.layerBounds = new Cesium.Rectangle(99.95422, 32.25671, 107.1912, 37.1386);
             gridLayer.zBounds = new Cesium.Cartesian2(500, 50000);

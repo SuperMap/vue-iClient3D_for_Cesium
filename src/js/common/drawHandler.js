@@ -106,7 +106,7 @@ const handlerDrawing = function (PolyType, lineVisib, toolTipObj) {
             // }
             
             if (DrawHandler.polyline && DrawHandler.isDrawing) {
-                let p  = [...DrawHandler.polyline.positions]
+                let p  = [...DrawHandler.positions]
                 if (PolyType == "Polygon") { //画面时，需要首尾相连
                     p.push(p[0])
                 };

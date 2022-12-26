@@ -262,10 +262,14 @@ function draw(props) {
                 material: material,
                 perPositionHeight: perPositionHeight,
                 // heightReference: Cesium.HeightReference.NONE 
+                groundBottomAltitude:0,
+                groundExtrudedHeight:100
             },
             // clampToS3M: clampToS3M
             classificationType: classificationType, //面贴对象
-            height: setHeight
+            height: setHeight,
+
+
         });
     }
 

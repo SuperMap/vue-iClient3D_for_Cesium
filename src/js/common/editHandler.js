@@ -16,14 +16,23 @@ const Edit = (EditPositions, isEditZ, callback) => {
         window.handlerPolygon.polygon.show = true;
     }
     selectHandler.setInputAction(() => {
+        console.log("viewer.selectedEntity:",viewer.selectedEntity);
+        // debugger
+        
         let entity = viewer.selectedEntity;
         let editHandler = window.editHandler
+
+        // editHandler && editHandler.clear();
+
         if (!entity) {
-            if (editHandler) {
-                editHandler && editHandler.deactivate();
-            }
             return;
         }
+    
+        if (editHandler) {
+            editHandler && editHandler.clear();
+        }
+
+
         if (!editHandler) {
             window.editHandler = new Cesium.EditHandler(viewer, entity);
             if (isEditZ) {
@@ -37,6 +46,15 @@ const Edit = (EditPositions, isEditZ, callback) => {
             editHandler.setEditObject(entity);
             editHandler.activate();
         }
+
+        // // 右击关闭editHandler
+        // selectHandler.setInputAction(() => {
+        //     console.log("hhh-editHandler")
+        //     editHandler.deactivate();
+        //     editHandler.clear();
+
+        // }, Cesium.ScreenSpaceEventType.RIGHT_CLICK)
+
         selectHandler.setInputAction(() => {
             entity = viewer.selectedEntity;
             editHandler = window.editHandler
@@ -61,6 +79,7 @@ const Edit = (EditPositions, isEditZ, callback) => {
             }
 
         }, Cesium.ScreenSpaceEventType.LEFT_UP)
+
     }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
 };
 

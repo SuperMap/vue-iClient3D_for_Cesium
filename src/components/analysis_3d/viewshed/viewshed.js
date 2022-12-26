@@ -113,6 +113,7 @@ function viewshed(props) {
         }
     }
 
+    let viewPointAltitude = null
     //   点击左键确认观察者点
     function LEFT_CLICK() {
         s3mInstanceColc.removeCollection("VeiwshedBody");
@@ -121,9 +122,11 @@ function viewshed(props) {
         viewshed3D.visibleAreaColor = Cesium.Color.fromCssColorString(state.visibleAreaColor);
         viewshed3D.hiddenAreaColor = Cesium.Color.fromCssColorString(state.hiddenAreaColor);
         handler.setInputAction(function (e) {
+            viewPointAltitude = null
             let position = scene.pickPosition(e.position);
             startPosition = position;  //记录分析观察者笛卡尔坐标
             let p = tool.CartesiantoDegrees(position) // 将获取的点的位置转化成经纬度
+            viewPointAltitude = p[2]
             p[2] += Number(state.addheight);  //添加附加高度
             viewshed3D.viewPosition = p;
             viewshed3D.build();
@@ -388,7 +391,7 @@ function viewshed(props) {
                 handlerPolyline.polyline.show = false;
                 window.polylineTransparent.show = true; //半透线隐藏
                 handlerPolyline.deactivate();
-                state.DynamicLine = res.result.object._positions;
+                state.DynamicLine = res.result.object.positions;
                 tooltip.setVisible(false);
                 if (state.DynamicLine.length < 2) {
                     tool.Message.warnMsg('至少需要两个点！');
@@ -482,15 +485,17 @@ function viewshed(props) {
             }
         }
     });
-    watch(() => state.addheight, (newval,oldval) => {
-        if (newval === '' || newval < 0) {    // 避免删除导致崩溃
-			newval = 0
+    watch(() => state.addheight, val => {
+        if (val === '' || val < 0) {    // 避免删除导致崩溃
+            val = 0
         }
         if (state.observerInformation) {
-			state.observerInformation[2]-=oldval;
-            state.observerInformation[2] += parseFloat(newval);
+            // viewPointAltitude:为观察点的海拔，不能像下面那样直接累加
+            state.observerInformation[2] = viewPointAltitude + parseFloat(val);
+            // state.observerInformation[2] += parseFloat(val);
             viewshed3D.viewPosition = state.observerInformation;
         }
+
     });
     watch(() => state.pitch, val => {
         if (val === '' || val < 0) {    // 避免删除导致崩溃
